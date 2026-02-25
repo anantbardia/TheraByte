@@ -11,3 +11,4 @@ scikit-learn
 chromadb
 sentence-transformers
 python-dotenv
+groq
