@@ -4,9 +4,16 @@ import json
 import uuid
 from datetime import datetime
 
-# Use an absolute path for the database to avoid directory confusion
+# Use an absolute path for the database, prioritizing persistent mount points on Render
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_NAME = os.path.join(BASE_DIR, "mindbridge.db")
+if os.path.exists("/data"):
+    # Industry standard mount point
+    DB_NAME = "/data/mindbridge.db"
+elif os.path.exists(os.path.join(BASE_DIR, "data")):
+    # Subdirectory mount point
+    DB_NAME = os.path.join(BASE_DIR, "data", "mindbridge.db")
+else:
+    DB_NAME = os.path.join(BASE_DIR, "mindbridge.db")
 
 def get_conn():
     conn = sqlite3.connect(DB_NAME)
