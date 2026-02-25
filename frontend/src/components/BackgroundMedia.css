@@ -1,0 +1,60 @@
+/* BackgroundMedia.css */
+
+.bg-media-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background-color: var(--bg-base);
+    /* Fallback */
+}
+
+.bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    opacity: 0.6;
+    /* Blend the video with our brand colors */
+    pointer-events: none;
+}
+
+.bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Deep Navy tint over the video for premium brand alignment */
+    background: linear-gradient(135deg,
+            rgba(11, 28, 46, 0.7) 0%,
+            rgba(2, 6, 10, 0.9) 100%);
+    backdrop-filter: blur(14px);
+    /* Frost the video slightly so UI isn't lost */
+    -webkit-backdrop-filter: blur(14px);
+    pointer-events: none;
+}
+
+.bg-orbs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Mint and Navy glowing orbs that float over the video */
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(121, 193, 176, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(121, 193, 176, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(17, 50, 85, 0.4) 0%, transparent 70%);
+    animation: meshFloat 22s ease-in-out infinite alternate;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}

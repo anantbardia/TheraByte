@@ -1,0 +1,374 @@
+.video-session-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background: var(--bg-surface);
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+
+/* ── Header ── */
+.session-header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(17, 50, 85, 0.08);
+    position: relative;
+    z-index: 20;
+}
+
+.sh-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--primary-navy);
+    font-size: 1.1rem;
+}
+
+.sh-brand img {
+    height: 32px;
+}
+
+.sh-badge {
+    background: rgba(121, 193, 176, 0.15);
+    color: #2a8a78;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 8px;
+}
+
+.sh-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: #5a6b7d;
+    font-weight: 500;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.status-dot.waiting {
+    background: #eab308;
+    box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.2);
+}
+
+.status-dot.active {
+    background: var(--primary-mint);
+    box-shadow: 0 0 0 3px var(--primary-mint-dim);
+}
+
+.sh-identity {
+    font-size: 0.9rem;
+    color: var(--primary-navy);
+    background: var(--bg-elevated);
+    padding: 6px 16px;
+    border-radius: 20px;
+}
+
+/* ── Therapist Layout ── */
+.therapist-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    height: calc(100vh - 64px);
+}
+
+/* ── Stage ── */
+.video-stage {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+    background: #081018;
+    position: relative;
+    overflow-y: auto;
+}
+
+.therapist-layout .video-stage {
+    padding: 24px;
+}
+
+/* Remote Video Container */
+.remote-video-container {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    position: relative;
+    background: #111b27;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+}
+
+.remote-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s var(--ease);
+}
+
+.remote-video.show {
+    opacity: 1;
+}
+
+.video-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+    margin: auto;
+}
+
+.vp-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--primary-mint);
+    opacity: 0.8;
+}
+
+/* Local Video Container (Picture in Picture style) */
+.local-video-container {
+    position: absolute;
+    bottom: 120px;
+    right: 48px;
+    width: 280px;
+    aspect-ratio: 4/3;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: #222;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.therapist-layout .local-video-container {
+    bottom: 120px;
+    right: 32px;
+}
+
+.local-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1);
+    /* Mirror self */
+    transition: filter 0.3s;
+}
+
+.local-video.muted {
+    filter: blur(20px) grayscale(100%);
+    opacity: 0.3;
+}
+
+.local-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.video-label {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+    z-index: 5;
+}
+
+/* ── Controls ── */
+.session-controls {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    padding: 12px 24px;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 20;
+}
+
+.ctrl-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--primary-navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s var(--ease);
+}
+
+.ctrl-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.ctrl-btn:hover {
+    background: white;
+    transform: scale(1.05);
+}
+
+.ctrl-btn.muted {
+    background: #ff4757;
+    color: white;
+}
+
+.ctrl-btn.end-call {
+    background: #ff4757;
+    color: white;
+    margin-left: 16px;
+}
+
+.ctrl-btn.end-call:hover {
+    background: #ff3344;
+}
+
+/* ── Copilot Sidebar ── */
+.copilot-sidebar {
+    background: white;
+    border-left: 1px solid rgba(17, 50, 85, 0.08);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.cp-header {
+    padding: 24px;
+    border-bottom: 1px solid rgba(17, 50, 85, 0.08);
+}
+
+.cp-header h3 {
+    font-family: var(--font-display);
+    color: var(--primary-navy);
+    font-size: 1.25rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cp-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cp-state {
+    display: flex;
+    justify-content: space-between;
+    background: var(--bg-elevated);
+    padding: 16px;
+    border-radius: var(--r-lg);
+}
+
+.cst-item span {
+    display: block;
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cst-item strong {
+    font-size: 1rem;
+    color: var(--primary-navy);
+    font-weight: 600;
+}
+
+.cst-item.danger strong {
+    color: #e11d48;
+}
+
+.insights-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.insight-card {
+    background: white;
+    border: 1px solid var(--primary-mint-light);
+    border-radius: var(--r-lg);
+    padding: 16px;
+    box-shadow: 0 4px 12px var(--primary-mint-dim);
+    animation: slideUp 0.3s var(--ease) forwards;
+}
+
+.inc-obs {
+    font-size: 0.9rem;
+    color: var(--primary-navy);
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.inc-sug {
+    background: var(--primary-mint-dim);
+    color: #1e7060;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.5;
+    position: relative;
+}
+
+.inc-sug::before {
+    content: 'Suggest:';
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    opacity: 0.8;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

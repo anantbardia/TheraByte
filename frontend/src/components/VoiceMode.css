@@ -1,0 +1,367 @@
+/* ══════════════════════════════════════════════════════
+   VoiceMode — Fullscreen Voice-to-Voice Overlay  v1
+   States: idle | listening | processing | speaking
+══════════════════════════════════════════════════════ */
+
+.vm-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--slate-950);
+    animation: fadeIn 0.35s var(--ease);
+    overflow: hidden;
+}
+
+/* ── Radial glow that shifts by state ── */
+.vm-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    pointer-events: none;
+    transition: background 1.2s ease, opacity 1.2s ease;
+    filter: blur(80px);
+    opacity: 0.25;
+}
+
+.vm-glow.listening {
+    background: radial-gradient(circle, var(--teal-400), transparent 70%);
+    opacity: 0.28;
+}
+
+.vm-glow.processing {
+    background: radial-gradient(circle, var(--amber-400), transparent 70%);
+    opacity: 0.22;
+}
+
+.vm-glow.speaking {
+    background: radial-gradient(circle, var(--teal-600), transparent 70%);
+    opacity: 0.32;
+}
+
+.vm-glow.idle {
+    background: radial-gradient(circle, var(--slate-600), transparent 70%);
+    opacity: 0.15;
+}
+
+/* ── Content column ── */
+.vm-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 400px;
+    padding: 0 24px;
+}
+
+/* ── Waveform canvas ── */
+.vm-waveform-wrap {
+    width: 300px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.vm-canvas {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+}
+
+.vm-canvas-idle {
+    /* show flat line when idle */
+    opacity: 0.3;
+}
+
+/* ── Orb ── */
+.vm-orb-wrap {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Animated ring layers */
+.vm-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid rgba(45, 212, 191, 0.20);
+    animation: breathe 3.5s ease-in-out infinite;
+}
+
+.vm-ring:nth-child(1) {
+    inset: -14px;
+    animation-delay: 0s;
+}
+
+.vm-ring:nth-child(2) {
+    inset: -28px;
+    animation-delay: 0.5s;
+    border-color: rgba(45, 212, 191, 0.12);
+}
+
+.vm-ring:nth-child(3) {
+    inset: -44px;
+    animation-delay: 1.0s;
+    border-color: rgba(45, 212, 191, 0.06);
+}
+
+.vm-orb {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(140deg, var(--teal-500), var(--teal-700));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 0 50px rgba(15, 118, 110, 0.35),
+        0 0 100px rgba(15, 118, 110, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.20);
+    position: relative;
+    z-index: 1;
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    color: white;
+}
+
+.vm-orb.listening {
+    animation: orbPulse 0.85s ease-in-out infinite alternate;
+}
+
+.vm-orb.processing {
+    animation: spin 2s linear infinite;
+    background: linear-gradient(140deg, var(--amber-500), var(--amber-700));
+    box-shadow: 0 0 50px rgba(217, 119, 6, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+.vm-orb.speaking {
+    animation: orbSpeak 0.5s ease-in-out infinite alternate;
+    background: linear-gradient(140deg, var(--teal-400), var(--teal-600));
+}
+
+@keyframes orbPulse {
+    from {
+        transform: scale(1);
+        box-shadow: 0 0 50px rgba(15, 118, 110, 0.35);
+    }
+
+    to {
+        transform: scale(1.09);
+        box-shadow: 0 0 80px rgba(15, 118, 110, 0.55);
+    }
+}
+
+@keyframes orbSpeak {
+    from {
+        transform: scale(0.96);
+    }
+
+    to {
+        transform: scale(1.06);
+    }
+}
+
+/* ── Status text ── */
+.vm-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+}
+
+.vm-state-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 14px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: var(--r-full);
+    font-family: var(--font-body);
+    font-size: 11.5px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.70);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.vm-state-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--teal-400);
+    animation: pulseSoft 1.5s infinite;
+}
+
+.vm-state-dot.amber {
+    background: var(--amber-400);
+}
+
+.vm-state-dot.muted {
+    background: rgba(255, 255, 255, 0.4);
+    animation: none;
+}
+
+.vm-transcript {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.6;
+    text-align: center;
+    min-height: 56px;
+    max-width: 340px;
+    transition: all 0.3s ease;
+}
+
+.vm-transcript-placeholder {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.35);
+    font-style: italic;
+}
+
+.vm-interim {
+    color: rgba(255, 255, 255, 0.52);
+    font-style: italic;
+}
+
+.vm-ai-response {
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    color: rgba(255, 255, 255, 0.80);
+    line-height: 1.7;
+    text-align: center;
+    max-width: 340px;
+    max-height: 120px;
+    overflow-y: auto;
+    padding: 4px;
+}
+
+/* ── Controls ── */
+.vm-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.vm-mic-btn {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--t-base) var(--ease);
+}
+
+.vm-mic-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: scale(1.06);
+}
+
+.vm-mic-btn.active {
+    background: var(--red-600);
+    border-color: var(--red-500);
+    box-shadow: 0 0 28px rgba(220, 38, 38, 0.40);
+    animation: glow-pulse 2s infinite;
+}
+
+.vm-controls-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.vm-ctrl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--r-full);
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all var(--t-base) var(--ease);
+}
+
+.vm-ctrl-btn:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: white;
+}
+
+.vm-ctrl-btn.danger {
+    border-color: rgba(220, 38, 38, 0.25);
+    color: rgba(255, 100, 100, 0.85);
+}
+
+.vm-ctrl-btn.danger:hover {
+    background: rgba(220, 38, 38, 0.15);
+    color: white;
+}
+
+/* ── Mode toggle (in chat topbar) ── */
+.vm-launch-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--teal-700), var(--teal-500));
+    border: none;
+    border-radius: var(--r-full);
+    font-family: var(--font-display);
+    font-size: 12.5px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: all var(--t-base) var(--ease);
+    box-shadow: 0 3px 12px rgba(15, 118, 110, 0.26);
+    letter-spacing: 0.01em;
+}
+
+.vm-launch-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(15, 118, 110, 0.34);
+}
+
+/* ── Hint ── */
+.vm-hint {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.28);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-align: center;
+}
+
+/* ── Scrollbar inside overlay ── */
+.vm-overlay ::-webkit-scrollbar {
+    width: 4px;
+}
+
+.vm-overlay ::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.vm-overlay ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+}

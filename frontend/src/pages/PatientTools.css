@@ -1,0 +1,161 @@
+/* ════════════════════════════════════════
+   PatientTools  — v6
+════════════════════════════════════════ */
+.tools-page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 28px;
+}
+
+.tools-page h1 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--slate-900);
+    letter-spacing: -0.025em;
+}
+
+.tools-desc {
+    font-size: 13.5px;
+    color: var(--slate-400);
+    font-weight: 500;
+    margin: 4px 0 28px;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.tool-card {
+    padding: 24px 22px;
+    background: white;
+    border: 1px solid var(--stone-200);
+    border-radius: var(--r-xl);
+    box-shadow: var(--shadow-xs);
+    cursor: pointer;
+    transition: all var(--t-base) var(--ease);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.4s var(--ease) forwards;
+    opacity: 0;
+}
+
+.tool-card:nth-child(1) {
+    animation-delay: .04s
+}
+
+.tool-card:nth-child(2) {
+    animation-delay: .10s
+}
+
+.tool-card:nth-child(3) {
+    animation-delay: .16s
+}
+
+.tool-card:nth-child(4) {
+    animation-delay: .22s
+}
+
+.tool-card:nth-child(5) {
+    animation-delay: .28s
+}
+
+.tool-card:nth-child(6) {
+    animation-delay: .34s
+}
+
+.tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--teal-600), var(--teal-400));
+    opacity: 0;
+    transition: opacity var(--t-base);
+}
+
+.tool-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--teal-200);
+}
+
+.tool-card:hover::before {
+    opacity: 1;
+}
+
+.tool-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: var(--r-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.tc-teal {
+    background: var(--teal-50);
+    color: var(--teal-700);
+}
+
+.tc-amber {
+    background: var(--amber-100);
+    color: var(--amber-700);
+}
+
+.tc-green {
+    background: var(--green-100);
+    color: var(--green-700);
+}
+
+.tc-slate {
+    background: var(--slate-100);
+    color: var(--slate-600);
+}
+
+.tool-card h3 {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--slate-900);
+    letter-spacing: -0.01em;
+}
+
+.tool-card p {
+    font-size: 13px;
+    color: var(--slate-500);
+    line-height: 1.65;
+}
+
+.tool-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--teal-600);
+    background: var(--teal-50);
+    border: 1px solid var(--teal-100);
+    border-radius: var(--r-full);
+    padding: 3px 10px;
+    width: fit-content;
+    letter-spacing: 0.02em;
+    margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+    .tools-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 540px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+}

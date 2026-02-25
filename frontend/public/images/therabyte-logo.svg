@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 120" width="380" height="120">
+    <rect width="380" height="120" fill="transparent"/>
+    
+    <g transform="translate(10, 20)">
+        <!-- Glowing neural hexagon -->
+        <path d="M40 5 L75 25 L75 65 L40 85 L5 65 L5 25 Z" fill="none" stroke="#79C1B0" stroke-width="4" stroke-linejoin="round"/>
+        <!-- Inner T shape -->
+        <path d="M25 35 L55 35 M40 35 L40 65" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+        <!-- Neural nodes -->
+        <circle cx="40" cy="65" r="4" fill="#79C1B0"/>
+        <circle cx="25" cy="35" r="4" fill="#79C1B0"/>
+        <circle cx="55" cy="35" r="4" fill="#79C1B0"/>
+        <circle cx="40" cy="5" r="5" fill="#113255" stroke="#79C1B0" stroke-width="2"/>
+    </g>
+
+    <text x="110" y="75" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="48" font-weight="900" fill="#ffffff" letter-spacing="-1.5">
+        Thera<tspan fill="#79C1B0">Byte</tspan>
+    </text>
+</svg>

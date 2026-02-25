@@ -1,0 +1,149 @@
+/* ════════════════════════════════════════
+   InputArea  — TheraByte v7
+   Mint + Navy chat input bar
+════════════════════════════════════════ */
+
+.input-bar {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1.5px solid rgba(17, 50, 85, 0.09);
+    border-radius: var(--r-xl);
+    padding: 8px 10px;
+    transition: border-color var(--t-base), box-shadow var(--t-base);
+    box-shadow: var(--shadow-xs);
+    backdrop-filter: blur(12px);
+}
+
+.input-bar:focus-within {
+    border-color: var(--primary-mint);
+    box-shadow: 0 0 0 3px rgba(121, 193, 176, 0.14), var(--shadow-sm);
+}
+
+.input-field {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+    padding: 6px 4px;
+    resize: none;
+    max-height: 140px;
+    min-height: 36px;
+    line-height: 1.58;
+    font-family: var(--font-body);
+    overflow-y: auto;
+}
+
+.input-field::placeholder {
+    color: var(--text-faint);
+}
+
+.input-char-count {
+    font-size: 10.5px;
+    color: var(--text-faint);
+    font-weight: 500;
+    align-self: flex-end;
+    padding-bottom: 10px;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.input-char-count.warn {
+    color: var(--amber-600);
+}
+
+.input-mic-wrap {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 2px;
+}
+
+.input-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--r-md);
+    border: 1.5px solid rgba(17, 50, 85, 0.08);
+    background: rgba(248, 250, 251, 0.90);
+    color: var(--text-faint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--t-base) var(--ease);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.input-icon:hover {
+    color: var(--primary-navy);
+    border-color: rgba(121, 193, 176, 0.40);
+    background: rgba(121, 193, 176, 0.08);
+    transform: scale(1.05);
+}
+
+.input-icon.recording {
+    color: var(--red-600);
+    background: var(--red-100);
+    border-color: var(--red-600);
+}
+
+.input-icon.recording::before,
+.input-icon.recording::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: var(--r-md);
+    border: 2px solid var(--red-500);
+    animation: ripple 1.5s ease-out infinite;
+}
+
+.input-icon.recording::after {
+    animation-delay: 0.5s;
+}
+
+/* Send Button */
+.input-send {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--r-md);
+    border: none;
+    background: var(--primary-navy);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--t-base) var(--ease);
+    flex-shrink: 0;
+    align-self: flex-end;
+    box-shadow: 0 3px 10px rgba(17, 50, 85, 0.22);
+    cursor: pointer;
+}
+
+.input-send:hover:not(:disabled) {
+    background: #1a4570;
+    transform: scale(1.08);
+    box-shadow: 0 5px 16px rgba(17, 50, 85, 0.30);
+}
+
+.input-send:disabled {
+    opacity: 0.28;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.input-hint {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+}
+
+.input-hint span {
+    font-size: 10.5px;
+    color: var(--text-faint);
+    font-weight: 500;
+}

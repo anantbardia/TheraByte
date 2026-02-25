@@ -1,0 +1,127 @@
+/* ════════════════════════════════════════
+   InfoWidgets  — v6  (Teal + Stone)
+════════════════════════════════════════ */
+.widget-card {
+    background: white;
+    border: 1px solid var(--stone-200);
+    border-radius: var(--r-lg);
+    padding: 13px 14px;
+    box-shadow: var(--shadow-xs);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: all var(--t-base) var(--ease);
+    animation: fadeUp 0.4s var(--ease) forwards;
+    cursor: default;
+}
+
+.widget-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--teal-200);
+    transform: translateY(-1px);
+}
+
+.widget-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--slate-400);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 2px;
+}
+
+.widget-label svg {
+    color: var(--teal-500);
+}
+
+/* Weather */
+.widget-row {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+}
+
+.widget-temp {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--slate-900);
+    letter-spacing: -0.03em;
+    line-height: 1;
+}
+
+.widget-desc {
+    font-size: 11.5px;
+    color: var(--slate-500);
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.widget-note {
+    font-size: 11px;
+    color: var(--slate-400);
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+/* Quote */
+.quote-card {
+    background: linear-gradient(140deg, var(--teal-50), white);
+    border-color: var(--teal-100);
+}
+
+.quote-text {
+    font-size: 11.5px;
+    color: var(--slate-700);
+    line-height: 1.55;
+    font-style: italic;
+    font-weight: 500;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.quote-author {
+    font-size: 10.5px;
+    color: var(--slate-400);
+    font-weight: 600;
+}
+
+/* Helpline */
+.helpline-card {
+    background: linear-gradient(140deg, #fff5f5, white);
+    border-color: rgba(220, 38, 38, 0.12);
+}
+
+.helpline-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--red-600);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.helpline-label svg {
+    color: var(--red-500);
+}
+
+.helpline-number {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--slate-900);
+    letter-spacing: -0.01em;
+}
+
+.helpline-name {
+    font-size: 10.5px;
+    color: var(--slate-400);
+    font-weight: 500;
+}

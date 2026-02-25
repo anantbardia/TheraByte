@@ -1,0 +1,398 @@
+/* TherapistPatients — TheraByte v7 */
+.tp-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 28px;
+}
+
+.tp-header-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+.tp-page h1 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.025em;
+}
+
+.tp-desc {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+/* Skeleton */
+.tp-loading {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 32px 0;
+}
+
+.tp-skeleton {
+    height: 64px;
+    border-radius: var(--r-lg);
+    background: linear-gradient(90deg, rgba(17, 50, 85, 0.05) 25%, rgba(255, 255, 255, 0.6) 50%, rgba(17, 50, 85, 0.05) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* KPI */
+.tp-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.tp-kpi {
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(17, 50, 85, 0.07);
+    border-radius: var(--r-xl);
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(12px);
+    transition: all var(--t-base) var(--ease);
+    animation: fadeUp 0.4s var(--ease) forwards;
+    opacity: 0;
+}
+
+.tp-kpi:nth-child(1) {
+    animation-delay: .04s
+}
+
+.tp-kpi:nth-child(2) {
+    animation-delay: .10s
+}
+
+.tp-kpi:nth-child(3) {
+    animation-delay: .16s
+}
+
+.tp-kpi:nth-child(4) {
+    animation-delay: .22s
+}
+
+.tp-kpi:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(121, 193, 176, 0.25);
+}
+
+.k-label {
+    display: block;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.k-value {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--primary-navy);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    animation: countUp 0.5s var(--ease) forwards;
+}
+
+.tp-kpi.danger .k-value {
+    color: var(--red-600);
+}
+
+.tp-kpi.success .k-value {
+    color: var(--green-600);
+}
+
+/* Sections */
+.tp-sections {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 16px;
+}
+
+.tp-section {
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(17, 50, 85, 0.06);
+    border-radius: var(--r-xl);
+    padding: 22px 24px;
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(12px);
+    animation: fadeUp 0.5s var(--ease) forwards;
+    opacity: 0;
+}
+
+.tp-section:nth-child(1) {
+    animation-delay: .15s
+}
+
+.tp-section:nth-child(2) {
+    animation-delay: .25s
+}
+
+.tp-section h2 {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: -0.01em;
+}
+
+.tp-section-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: var(--r-full);
+    background: rgba(121, 193, 176, 0.10);
+    color: #2a8a78;
+    font-size: 11px;
+    font-weight: 700;
+    border: 1px solid rgba(121, 193, 176, 0.25);
+}
+
+.tp-section-badge.red {
+    background: var(--red-100);
+    color: var(--red-700);
+    border-color: rgba(220, 38, 38, 0.20);
+}
+
+.tp-empty {
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 20px 0;
+    text-align: center;
+    line-height: 1.6;
+}
+
+/* Patient list */
+.tp-patient-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tp-scrollable-list {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 4px;
+    margin-right: -4px;
+}
+
+/* Custom Scrollbar */
+.tp-scrollable-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.tp-scrollable-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.tp-scrollable-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}
+
+.tp-scrollable-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.patient-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 16px;
+    border-radius: var(--r-lg);
+    border: 1.5px solid rgba(17, 50, 85, 0.07);
+    text-decoration: none;
+    transition: all var(--t-base) var(--ease);
+    background: rgba(255, 255, 255, 0.75);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+}
+
+.patient-row::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: transparent;
+    transition: background var(--t-base);
+}
+
+.patient-row:hover {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--shadow-sm);
+    border-color: rgba(121, 193, 176, 0.30);
+    transform: translateX(2px);
+}
+
+.patient-row:hover::before {
+    background: var(--primary-mint);
+}
+
+.patient-row.high-risk {
+    border-color: rgba(220, 38, 38, 0.18);
+    background: rgba(255, 250, 250, 0.90);
+}
+
+.patient-row.high-risk::before {
+    background: var(--red-500);
+}
+
+.pr-avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.pr-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 800;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+
+.pr-risk-ring {
+    position: absolute;
+    inset: -3px;
+    z-index: 0;
+}
+
+.pr-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.pr-name {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13.5px;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pr-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.pr-id {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-family: var(--font-mono);
+}
+
+.pr-risk {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.pr-risk-score {
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+}
+
+.pr-risk-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.pr-arrow {
+    color: var(--text-faint);
+    flex-shrink: 0;
+}
+
+/* Heatmap */
+.tp-heatmap {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18px, 1fr));
+    gap: 4px;
+}
+
+.hm-cell {
+    aspect-ratio: 1;
+    border-radius: 4px;
+    min-height: 18px;
+    transition: transform var(--t-fast);
+    cursor: pointer;
+}
+
+.hm-cell:hover {
+    transform: scale(1.35);
+}
+
+/* Mood timeline */
+.tp-moods {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.mood-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mr-time {
+    font-size: 10.5px;
+    color: var(--text-faint);
+    font-weight: 500;
+    width: 44px;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.mr-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary-mint);
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(121, 193, 176, 0.15);
+}
+
+.mr-label {
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 13px;
+}

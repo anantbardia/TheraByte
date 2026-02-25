@@ -1,0 +1,97 @@
+/* ════════════════════════════════════════
+   MoodTracker  — v6
+════════════════════════════════════════ */
+.mood-tracker {
+    background: white;
+    border: 1px solid var(--stone-200);
+    border-radius: var(--r-lg);
+    padding: 14px 16px;
+    box-shadow: var(--shadow-xs);
+}
+
+.mood-label {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--slate-400);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 10px;
+}
+
+.mood-grid {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.mood-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 9px 11px;
+    border: 1.5px solid var(--stone-200);
+    border-radius: var(--r-md);
+    background: var(--stone-50);
+    cursor: pointer;
+    transition: all var(--t-base) var(--ease-bounce);
+    min-width: 54px;
+    position: relative;
+    overflow: hidden;
+}
+
+.mood-btn svg {
+    color: var(--slate-500);
+    transition: color var(--t-fast);
+}
+
+.mood-btn-label {
+    font-size: 9.5px;
+    font-weight: 600;
+    color: var(--slate-400);
+    letter-spacing: 0.02em;
+    font-family: var(--font-body);
+}
+
+.mood-btn:hover {
+    border-color: var(--teal-300);
+    background: var(--teal-50);
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.mood-btn:hover svg {
+    color: var(--teal-600);
+}
+
+.mood-btn:hover .mood-btn-label {
+    color: var(--teal-600);
+}
+
+.mood-btn.selected {
+    border-color: var(--teal-500);
+    background: var(--teal-50);
+    transform: scale(1.06);
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.10), var(--shadow-xs);
+}
+
+.mood-btn.selected svg {
+    color: var(--teal-600);
+}
+
+.mood-btn.selected .mood-btn-label {
+    color: var(--teal-700);
+}
+
+.mood-btn.selected::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--teal-500);
+    animation: bounceIn 0.3s var(--ease-bounce);
+}

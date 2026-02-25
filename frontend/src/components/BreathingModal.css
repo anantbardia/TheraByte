@@ -1,0 +1,174 @@
+/* ════════════════════════════════════════
+   BreathingModal  — v6  (Teal, Light theme)
+════════════════════════════════════════ */
+.breathing-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 23, 42, 0.72);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    animation: fadeIn 0.32s var(--ease);
+}
+
+.breathing-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    padding: 52px 48px;
+    background: white;
+    border-radius: var(--r-2xl);
+    max-width: 420px;
+    width: 90vw;
+    box-shadow: var(--shadow-xl);
+    animation: scaleIn 0.38s var(--ease-bounce) forwards;
+    border: 1px solid var(--stone-200);
+}
+
+.breathing-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--slate-900);
+    letter-spacing: -0.02em;
+}
+
+.breathing-subtitle {
+    font-size: 13px;
+    color: var(--slate-400);
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+/* ── Circle ── */
+.breathing-circle-wrap {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.breathing-circle-wrap::before,
+.breathing-circle-wrap::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid var(--teal-200);
+}
+
+.breathing-circle-wrap::before {
+    inset: -16px;
+    animation: breathe 4s ease-in-out infinite;
+}
+
+.breathing-circle-wrap::after {
+    inset: -32px;
+    animation: breathe 4s ease-in-out infinite 0.5s;
+    border-color: var(--teal-100);
+}
+
+.breathing-circle {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: linear-gradient(140deg, var(--teal-500), var(--teal-700));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 50px rgba(15, 118, 110, 0.25), 0 0 80px rgba(15, 118, 110, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+    transition: transform 4s ease-in-out;
+    position: relative;
+    z-index: 1;
+}
+
+.breathing-circle.inhale {
+    transform: scale(1.26);
+    box-shadow: 0 0 70px rgba(15, 118, 110, 0.35), 0 0 100px rgba(15, 118, 110, 0.18);
+}
+
+.breathing-circle.hold {
+    transform: scale(1.26);
+}
+
+.breathing-circle.exhale {
+    transform: scale(1.0);
+}
+
+.breathing-step-text {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.breathing-count {
+    font-family: var(--font-display);
+    font-size: 38px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Progress dots */
+.breathing-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.breathing-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--stone-200);
+    transition: all var(--t-base);
+}
+
+.breathing-dot.active {
+    background: var(--teal-500);
+    transform: scale(1.3);
+    box-shadow: 0 0 8px rgba(15, 118, 110, 0.35);
+}
+
+.breathing-dot.done {
+    background: var(--teal-300);
+}
+
+.breathing-instruction {
+    font-size: 14.5px;
+    color: var(--slate-600);
+    font-weight: 500;
+    line-height: 1.55;
+    min-height: 48px;
+    max-width: 280px;
+}
+
+.breathing-close {
+    background: var(--stone-100);
+    border: 1.5px solid var(--stone-200);
+    border-radius: var(--r-full);
+    color: var(--slate-600);
+    padding: 10px 28px;
+    font-family: var(--font-display);
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--t-base) var(--ease);
+}
+
+.breathing-close:hover {
+    background: var(--teal-50);
+    border-color: var(--teal-300);
+    color: var(--teal-700);
+}

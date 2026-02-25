@@ -1,0 +1,591 @@
+/* Wellness Modals Global CSS */
+
+.wellness-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.wellness-modal {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.wm-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: none;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.wm-close:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.wm-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.wm-header h2 {
+    color: #0f172a;
+    font-size: 1.75rem;
+    margin: 8px 0;
+}
+
+.wm-header p {
+    color: #64748b;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.wm-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.wm-tag.tc-green {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.wm-tag.tc-slate {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.wm-tag.tc-amber {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+/* Progress Dots */
+.wm-progress,
+.pmr-progress {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.wm-dot,
+.pmr-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.wm-dot.active,
+.pmr-dot.active {
+    width: 24px;
+    background: var(--primary-mint);
+}
+
+.wm-dot.done,
+.pmr-dot.done {
+    background: var(--primary-mint-light);
+}
+
+/* Footer & Buttons */
+.wm-footer {
+    margin-top: auto;
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Completion States */
+.wm-completed {
+    text-align: center;
+    padding: 48px 0;
+}
+
+.wm-success-icon {
+    font-size: 4rem;
+    margin-bottom: 24px;
+}
+
+/* ----------------------------------
+   Grounding Modal (5-4-3-2-1)
+---------------------------------- */
+.grounding-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 0 48px;
+}
+
+.gc-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    background: #f0fdf4;
+    color: #16a34a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.grounding-content h3 {
+    margin: 0 0 12px;
+    font-size: 1.5rem;
+    color: #0f172a;
+}
+
+.grounding-content p {
+    color: #475569;
+    line-height: 1.6;
+}
+
+
+/* ----------------------------------
+   Thought Journal 
+---------------------------------- */
+.tj-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.tj-step h3 {
+    margin: 0 0 8px;
+    color: #0f172a;
+}
+
+.tj-step p {
+    color: #64748b;
+    margin: 0 0 24px;
+    font-size: 0.95rem;
+}
+
+.tj-textarea {
+    width: 100%;
+    min-height: 140px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    font-family: inherit;
+    font-size: 1rem;
+    resize: vertical;
+    margin-bottom: 24px;
+    background: #f8fafc;
+    transition: border-color 0.2s;
+}
+
+.tj-textarea:focus {
+    outline: none;
+    border-color: var(--primary-mint);
+    background: white;
+}
+
+.tj-distortions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.tj-distortion-btn {
+    padding: 8px 16px;
+    border-radius: 100px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #475569;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.tj-distortion-btn:hover {
+    background: #f8fafc;
+}
+
+.tj-distortion-btn.selected {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #b45309;
+}
+
+.tj-summary {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: left;
+    margin: 24px 0;
+}
+
+.tj-summary div {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: #334155;
+    line-height: 1.5;
+}
+
+.tj-step.success {
+    text-align: center;
+}
+
+/* ----------------------------------
+   PMR Modal
+---------------------------------- */
+.pmr-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 32px;
+}
+
+.pmr-timer-ring {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 24px;
+}
+
+.pmr-time-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.pmr-phase-title {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin: 0 0 16px;
+}
+
+.pmr-phase-title.tense {
+    color: #ef4444;
+}
+
+.pmr-phase-title.relax {
+    color: #10b981;
+}
+
+.pmr-phase-title.idle {
+    color: #94a3b8;
+}
+
+.pmr-group-name {
+    font-size: 1.25rem;
+    color: #0f172a;
+    margin: 0 0 12px;
+}
+
+.pmr-instruction {
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    min-height: 48px;
+}
+
+.pmr-controls {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.pmr-play-btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+    background: var(--primary-mint);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 25px -5px rgba(121, 193, 176, 0.4);
+}
+
+.pmr-reset-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    background: #f1f5f9;
+    color: #64748b;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    align-self: center;
+}
+
+/* ----------------------------------
+   Soundscape Modal
+---------------------------------- */
+.ss-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.ss-card {
+    background: #f8fafc;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    padding: 24px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ss-card:hover {
+    transform: translateY(-2px);
+}
+
+.ss-card.active {
+    background: white;
+    border-color: var(--theme);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.ss-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    background: #f1f5f9;
+    color: var(--theme);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+}
+
+.ss-card.active .ss-icon {
+    background: var(--theme);
+    color: white;
+}
+
+.ss-card h4 {
+    margin: 0;
+    color: #1e293b;
+}
+
+.ss-now-playing {
+    text-align: center;
+    color: #475569;
+    margin-bottom: 16px;
+}
+
+.ss-volume {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #64748b;
+    background: #f8fafc;
+    padding: 16px 24px;
+    border-radius: 100px;
+}
+
+.ss-volume input[type="range"] {
+    flex: 1;
+    height: 4px;
+    accent-color: var(--theme);
+}
+
+.ss-eq {
+    display: flex;
+    gap: 3px;
+    height: 20px;
+    align-items: flex-end;
+}
+
+.ss-eq span {
+    width: 4px;
+    background: white;
+    border-radius: 2px;
+    animation: eq 0.8s ease-in-out infinite alternate;
+}
+
+.ss-eq span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.ss-eq span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes eq {
+    0% {
+        height: 4px;
+    }
+
+    100% {
+        height: 18px;
+    }
+}
+
+/* ----------------------------------
+   DBT Opposite Action Modal
+---------------------------------- */
+.dbt-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.dbt-btn {
+    padding: 16px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    color: #1e293b;
+    background: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dbt-btn.selected {
+    border-color: #f59e0b;
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.dbt-opposite-view {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.dbt-urge-box,
+.dbt-action-box {
+    background: #f8fafc;
+    padding: 24px;
+    border-radius: 16px;
+    position: relative;
+    border: 1px solid #e2e8f0;
+}
+
+.dbt-urge-box {
+    font-size: 1.1rem;
+    color: #64748b;
+    font-style: italic;
+}
+
+.dbt-action-box {
+    background: #fef3c7;
+    border-color: #fde68a;
+    color: #92400e;
+}
+
+.box-label {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 0 12px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: #94a3b8;
+    border-radius: 100px;
+    border: 1px solid #e2e8f0;
+}
+
+.dbt-action-box .box-label {
+    border-color: #fde68a;
+    color: #b45309;
+}
+
+.dbt-action-box h4 {
+    margin: 0 0 16px;
+    font-size: 1.4rem;
+}
+
+.dbt-action-box ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+
+.dbt-action-box li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dbt-action-box li:last-child {
+    border: none;
+}
+
+.dbt-commitment p {
+    text-align: center;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 16px;
+}
