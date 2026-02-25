@@ -372,3 +372,63 @@
         transform: translateY(0);
     }
 }
+
+/* ── Mobile Responsiveness ── */
+@media (max-width: 768px) {
+    .session-header {
+        padding: 0 16px;
+    }
+
+    .sh-brand span,
+    .sh-badge {
+        display: none;
+    }
+
+    .sh-status span {
+        display: none;
+    }
+
+    .sh-identity {
+        padding: 4px 10px;
+        font-size: 0.8rem;
+    }
+
+    .therapist-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: 55vh 1fr;
+        height: auto;
+        min-height: calc(100vh - 64px);
+    }
+
+    .video-stage,
+    .therapist-layout .video-stage {
+        padding: 12px;
+    }
+
+    .local-video-container {
+        width: 120px;
+        bottom: 80px;
+        right: 20px;
+    }
+
+    .therapist-layout .local-video-container {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .session-controls {
+        bottom: 16px;
+        padding: 10px 16px;
+        gap: 12px;
+    }
+
+    .ctrl-btn {
+        width: 48px;
+        height: 48px;
+    }
+
+    .copilot-sidebar {
+        border-left: none;
+        border-top: 1px solid rgba(17, 50, 85, 0.08);
+    }
+}

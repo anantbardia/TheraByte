@@ -93,3 +93,32 @@
     position: relative;
     z-index: 1;
 }
+
+/* ── Mobile Responsiveness ── */
+@media (max-width: 768px) {
+    .t-header {
+        flex-direction: column;
+        height: auto;
+        padding: 12px 16px;
+        gap: 12px;
+    }
+
+    .t-header-left {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .t-nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .tn {
+        padding: 8px 12px;
+        font-size: 13px;
+        flex: 1;
+        justify-content: center;
+        text-align: center;
+    }
+}

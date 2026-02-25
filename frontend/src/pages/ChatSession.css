@@ -261,3 +261,28 @@
     max-width: var(--content-max);
     margin: 0 auto;
 }
+
+/* ── Mobile Responsiveness ── */
+@media (max-width: 768px) {
+    .chat-topbar {
+        padding: 0 16px;
+        height: 56px;
+    }
+
+    .ct-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .chat-body {
+        padding: 16px 16px 0;
+    }
+
+    .chat-widgets {
+        grid-template-columns: 1fr;
+    }
+
+    .chat-input-area {
+        padding: 10px 16px 16px;
+    }
+}

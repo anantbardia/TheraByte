@@ -265,3 +265,31 @@
     color: var(--slate-700);
     font-size: 13px;
 }
+
+/* ── Mobile Responsiveness ── */
+@media (max-width: 768px) {
+    .dash-panel {
+        width: 100%;
+        max-height: 90vh;
+        border-radius: var(--r-xl) var(--r-xl) 0 0;
+        margin-top: auto;
+    }
+
+    .dash-top {
+        padding: 20px 20px 16px;
+    }
+
+    .kpi-row {
+        grid-template-columns: 1fr 1fr;
+        padding: 16px 20px;
+    }
+
+    .dash-grid {
+        grid-template-columns: 1fr;
+        padding: 0 20px 20px;
+    }
+
+    .dash-panel-full {
+        padding: 20px 16px;
+    }
+}

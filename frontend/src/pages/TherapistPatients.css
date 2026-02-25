@@ -396,3 +396,46 @@
     color: var(--text-secondary);
     font-size: 13px;
 }
+
+/* ── Mobile Responsiveness ── */
+@media (max-width: 768px) {
+    .tp-page {
+        padding: 24px 16px;
+    }
+
+    .tp-header-row {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .tp-kpis {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tp-sections {
+        grid-template-columns: 1fr;
+    }
+
+    .patient-row {
+        flex-wrap: wrap;
+        padding: 12px;
+    }
+
+    .pr-risk {
+        align-items: flex-start;
+        width: 100%;
+        flex-direction: row;
+        gap: 8px;
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(17, 50, 85, 0.05);
+    }
+
+    .pr-risk-label {
+        margin-top: 6px;
+    }
+
+    .pr-arrow {
+        margin-left: auto;
+    }
+}
