@@ -150,20 +150,18 @@ def init_db():
         FOREIGN KEY(user_id) REFERENCES users(id)
     )''')
 
-    # Ensure exactly one authorized therapist exists ("erase all previous therapists")
+    # Ensure exactly one authorized therapist exists
     import hashlib
     pw = hashlib.sha256(b"password123").hexdigest()
     now = datetime.now().isoformat()
     auth_email = 'dr.smith@therabyte.com'
     auth_name = 'Dr. Sarah Smith'
-
-    # WIPE all therapists first to guarantee only the authorized one exists
-    # Using the cursor to ensure consistent execution
-    c.execute("DELETE FROM therapists")
     
-    # Insert the single authorized therapist
+    # We DO NOT delete from therapists because it triggers a Foreign Key Constraint
+    # if there are existing sessions tied to them due to `PRAGMA foreign_keys = ON`.
+    # Instead, we just ensure our primary therapist exists.
     c.execute(
-        "INSERT OR REPLACE INTO therapists (id, name, email, password_hash, specialization, created_at) VALUES (?, ?, ?, ?, ?, ?)",
+        "INSERT OR IGNORE INTO therapists (id, name, email, password_hash, specialization, created_at) VALUES (?, ?, ?, ?, ?, ?)",
         ('t_dr_smith', auth_name, auth_email, pw, 'Clinical Psychologist', now)
     )
     conn.commit()
