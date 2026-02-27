@@ -18,3 +18,4 @@ backend/AIpsycho.db
 backend/app.log
 backend/mindbridge.db
 backend/chroma_data/
+backend/chroma_data/
