@@ -1,5 +1,5 @@
 """
-MindBridge AI — LangGraph Pipeline
+TheraByte AI — LangGraph Pipeline
 ====================================
 Replaces the linear chat pipeline in main.py with a stateful directed graph.
 Each node has a single responsibility. The conditional risk_router decides which
@@ -11,7 +11,7 @@ Graph topology:
                                 ├─ panic  ──→ build_context → generate_response → logging
                                 └─ normal ──→ sentiment_enrichment → build_context → generate_response → logging
 
-All nodes receive the full MindBridgeState and return a (partial) update dict.
+All nodes receive the full TheraByteState and return a (partial) update dict.
 LangGraph merges these updates automatically.
 """
 
@@ -27,14 +27,14 @@ if _BACKEND_DIR not in sys.path:
 from typing import Literal
 from langgraph.graph import StateGraph, END
 
-from core.graph_state import MindBridgeState
-from core.mindbridge import analyze_risk_score, get_mindbridge_response
+from core.graph_state import TheraByteState
+from core.therabyte import analyze_risk_score, get_therabyte_response
 import ml_inference
 import database
 import api_services
 from core import memory
 
-logger = logging.getLogger("mindbridge.graph")
+logger = logging.getLogger("therabyte.graph")
 
 
 # ══════════════════════════════════════════════════════════════
@@ -42,7 +42,7 @@ logger = logging.getLogger("mindbridge.graph")
 # Runs all 3 sklearn models instantly — no API required.
 # ══════════════════════════════════════════════════════════════
 
-def ml_analysis_node(state: MindBridgeState) -> dict:
+def ml_analysis_node(state: TheraByteState) -> dict:
     """Run all 3 custom ML models on the user's message."""
     logger.info("[graph] ml_analysis_node running")
     analysis = ml_inference.analyze_message(state["user_text"])
@@ -59,7 +59,7 @@ def ml_analysis_node(state: MindBridgeState) -> dict:
 # Always takes the HIGHER risk score from either source.
 # ══════════════════════════════════════════════════════════════
 
-def risk_scoring_node(state: MindBridgeState) -> dict:
+def risk_scoring_node(state: TheraByteState) -> dict:
     """Merge ML and regex risk scores. Determine final mode + flags."""
     logger.info("[graph] risk_scoring_node running")
     regex_risk = analyze_risk_score(state["user_text"])
@@ -95,7 +95,7 @@ def risk_scoring_node(state: MindBridgeState) -> dict:
 # Directs the graph flow based on the detected risk level.
 # ══════════════════════════════════════════════════════════════
 
-def risk_router(state: MindBridgeState) -> Literal["crisis", "panic", "normal"]:
+def risk_router(state: TheraByteState) -> Literal["crisis", "panic", "normal"]:
     """Return which branch to take based on combined_mode."""
     return state["combined_mode"]  # type: ignore[return-value]
 
@@ -107,7 +107,7 @@ def risk_router(state: MindBridgeState) -> Literal["crisis", "panic", "normal"]:
 # Skipped entirely for crisis/panic (speed + simplicity).
 # ══════════════════════════════════════════════════════════════
 
-def sentiment_enrichment_node(state: MindBridgeState) -> dict:
+def sentiment_enrichment_node(state: TheraByteState) -> dict:
     """Conditionally enrich with Gemini sentiment (normal path only)."""
     logger.info("[graph] sentiment_enrichment_node running")
     ml_emotion = state["ml_emotion"]
@@ -135,7 +135,7 @@ def sentiment_enrichment_node(state: MindBridgeState) -> dict:
 # Also pre-loads the user profile to avoid a duplicate DB call later.
 # ══════════════════════════════════════════════════════════════
 
-def build_context_node(state: MindBridgeState) -> dict:
+def build_context_node(state: TheraByteState) -> dict:
     """Assemble the extra_context string and load user profile."""
     logger.info("[graph] build_context_node running")
     profile = database.get_profile(state["user_id"])
@@ -197,10 +197,10 @@ def build_context_node(state: MindBridgeState) -> dict:
 # generates a clinically-structured therapeutic response.
 # ══════════════════════════════════════════════════════════════
 
-def response_node(state: MindBridgeState) -> dict:
+def response_node(state: TheraByteState) -> dict:
     """Generate the final therapeutic response using Gemini."""
     logger.info(f"[graph] response_node running (path={state.get('combined_mode')})")
-    content = get_mindbridge_response(
+    content = get_therabyte_response(
         messages=state["messages"],
         extra_context=state["extra_context"],
         age_group=state.get("age_group", "20-30"),
@@ -216,7 +216,7 @@ def response_node(state: MindBridgeState) -> dict:
 # for persistence regardless of which path was taken.
 # ══════════════════════════════════════════════════════════════
 
-def logging_node(state: MindBridgeState) -> dict:
+def logging_node(state: TheraByteState) -> dict:
     """Persist risk log, response, and updated cognitive distortion profile."""
     logger.info("[graph] logging_node running")
 
@@ -266,7 +266,7 @@ def logging_node(state: MindBridgeState) -> dict:
 
 def _build_graph() -> StateGraph:
     """
-    Construct and compile the MindBridge LangGraph.
+    Construct and compile the TheraByte LangGraph.
 
     Topology:
         ml_analysis
@@ -281,7 +281,7 @@ def _build_graph() -> StateGraph:
                                                               ↓
                                                            logging → END
     """
-    g = StateGraph(MindBridgeState)
+    g = StateGraph(TheraByteState)
 
     # Register all nodes
     g.add_node("ml_analysis",           ml_analysis_node)
@@ -320,4 +320,4 @@ def _build_graph() -> StateGraph:
 
 
 # ── Compiled singleton — imported by main.py ──
-mindbridge_graph = _build_graph()
+therabyte_graph = _build_graph()

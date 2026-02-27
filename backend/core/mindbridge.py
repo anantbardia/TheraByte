@@ -1,5 +1,5 @@
 """
-MindBridge AI — Core Therapeutic Engine
+TheraByte AI — Core Therapeutic Engine
 This is the BRAIN of the system. Every response follows clinical structure.
 """
 import re
@@ -155,7 +155,7 @@ def analyze_risk_score(text: str) -> dict:
 # Main AI Response Function
 # ---------------------------------------------------------
 
-def get_mindbridge_response(
+def get_therabyte_response(
     messages: List[Dict[str, str]],
     extra_context: str = "",
     age_group: str = "20-30"

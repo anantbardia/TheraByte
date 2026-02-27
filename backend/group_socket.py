@@ -1,7 +1,7 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from typing import Dict, List
 import database
-from core.mindbridge import analyze_risk_score
+from core.therabyte import analyze_risk_score
 import json
 
 router = APIRouter()
@@ -57,8 +57,8 @@ async def websocket_endpoint(websocket: WebSocket, group_id: str, user_id: str):
                 # Intercepted! Send a private message back to the sender ONLY.
                 crisis_response = {
                     "type": "system_alert",
-                    "content": "Your message was not sent to the group because it indicates you might be in crisis. Please return to the 1-on-1 MindBridge chat for immediate support, or use the helpline toolkit.",
-                    "author_name": "MindBridge Moderator",
+                    "content": "Your message was not sent to the group because it indicates you might be in crisis. Please return to the 1-on-1 TheraByte chat for immediate support, or use the helpline toolkit.",
+                    "author_name": "TheraByte Moderator",
                     "user_id": "system"
                 }
                 await websocket.send_text(json.dumps(crisis_response))

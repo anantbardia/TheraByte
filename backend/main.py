@@ -9,8 +9,8 @@ from typing import List, Optional
 import hashlib
 import json
 import database
-from core.mindbridge import get_mindbridge_response, analyze_risk_score
-from core.mindbridge_graph import mindbridge_graph   # LangGraph pipeline
+from core.therabyte import get_therabyte_response, analyze_risk_score
+from core.therabyte_graph import therabyte_graph   # LangGraph pipeline
 import api_services
 import ml_inference  # Our custom trained models (used directly for non-chat endpoints)
 import group_socket
@@ -28,7 +28,7 @@ logging.basicConfig(
         logging.FileHandler("app.log")
     ]
 )
-logger = logging.getLogger("mindbridge-backend")
+logger = logging.getLogger("therabyte-backend")
 
 app = FastAPI(title="TheraByte AI — Backend")
 app.add_middleware(
@@ -115,9 +115,9 @@ class UpdateAppointmentStatusRequest(BaseModel):
 # -- Health --
 @app.get("/")
 def health():
-    return {"status": "online", "service": "MindBridge AI", "ai_layers": {
+    return {"status": "online", "service": "TheraByte AI", "ai_layers": {
         "pipeline": "LangGraph (6-node stateful graph)",
-        "custom_models": ["mindbridge-crisis-v1", "mindbridge-emotion-v1", "mindbridge-distortion-v1"],
+        "custom_models": ["therabyte-crisis-v1", "therabyte-emotion-v1", "therabyte-distortion-v1"],
         "llm": "Gemini 1.5 Flash",
         "apis": ["Open-Meteo", "ZenQuotes", "Web Speech", "Geolocation"]
     }}
@@ -172,7 +172,7 @@ def update_appointment_status(appointment_id: str, req: UpdateAppointmentStatusR
 # CORE: Chat Endpoint — LangGraph Stateful Pipeline
 #
 # All processing is now handled by a compiled LangGraph graph
-# defined in core/mindbridge_graph.py
+# defined in core/therabyte_graph.py
 #
 # Graph nodes (in order):
 #   1. ml_analysis_node        — 3 custom ML models (local, instant)
@@ -202,7 +202,7 @@ def chat_endpoint(request: ChatRequest):
         # ── Invoke the LangGraph pipeline ──
         # All ML inference, risk scoring, routing, enrichment,
         # response generation, and DB logging happen inside the graph.
-        result = mindbridge_graph.invoke({
+        result = therabyte_graph.invoke({
             "messages":            messages,
             "user_id":             request.user_id,
             "session_id":          request.session_id,

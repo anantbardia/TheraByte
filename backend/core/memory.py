@@ -42,7 +42,7 @@ def _get_collection():
         )
 
         _memory_collection = _client.get_or_create_collection(
-            name="mindbridge_memories_v3",  # v3 = fastembed neural collection
+            name="therabyte_memories_v3",  # v3 = fastembed neural collection
             embedding_function=ef,
             metadata={"hnsw:space": "cosine"},
         )

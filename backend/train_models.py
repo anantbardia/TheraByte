@@ -1,5 +1,5 @@
 """
-MindBridge AI — Custom Model Training Pipeline
+TheraByte AI — Custom Model Training Pipeline
 Trains 3 specialized ML classifiers for mental health analysis:
   1. Crisis Detection (binary: crisis / safe)
   2. Emotion Classification (multi-class: 8 emotions)
@@ -236,7 +236,7 @@ def train_distortion_model():
 def train_all():
     """Train all 3 models."""
     print("=" * 60)
-    print("MindBridge AI — Custom Model Training")
+    print("TheraByte AI — Custom Model Training")
     print("=" * 60)
     crisis = train_crisis_model()
     emotion = train_emotion_model()

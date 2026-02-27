@@ -6,7 +6,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import database
-from core.mindbridge import client, GROQ_API_KEY
+from core.therabyte import client, GROQ_API_KEY
 import logging
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
@@ -25,7 +25,7 @@ def generate_checkin_message(user_info) -> str:
         if profile.get('effective_interventions'):
             context += f" Known effective tools: {profile['effective_interventions']}."
 
-    prompt = f"""You are MindBridge AI. You are proactively checking in on a user who hasn't had a session in a while but exhibited high risk recently.
+    prompt = f"""You are TheraByte AI. You are proactively checking in on a user who hasn't had a session in a while but exhibited high risk recently.
 
 User Info:
 - Name/Alias: {nickname}
@@ -82,6 +82,6 @@ def run_checkin_scan():
         logger.info(f"Check-in created successfully for user {user['id']}.")
 
 if __name__ == "__main__":
-    logger.info("MindBridge Proactive Care Worker Initialized.")
+    logger.info("TheraByte Proactive Care Worker Initialized.")
     # For demonstration, run once. In production, wrap in a schedule or cron job.
     run_checkin_scan()

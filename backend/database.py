@@ -8,12 +8,12 @@ from datetime import datetime
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 if os.path.exists("/data"):
     # Industry standard mount point
-    DB_NAME = "/data/mindbridge.db"
+    DB_NAME = "/data/therabyte.db"
 elif os.path.exists(os.path.join(BASE_DIR, "data")):
     # Subdirectory mount point
-    DB_NAME = os.path.join(BASE_DIR, "data", "mindbridge.db")
+    DB_NAME = os.path.join(BASE_DIR, "data", "therabyte.db")
 else:
-    DB_NAME = os.path.join(BASE_DIR, "mindbridge.db")
+    DB_NAME = os.path.join(BASE_DIR, "therabyte.db")
 
 def get_conn():
     conn = sqlite3.connect(DB_NAME)

@@ -1,12 +1,12 @@
 """
-MindBridge AI — Enhanced API Services
+TheraByte AI — Enhanced API Services
 Every interaction is deeply AI-analyzed. AI is the superpower.
 """
 import json
 import requests
 from datetime import datetime
 from groq import Groq
-from core.mindbridge import GROQ_API_KEY
+from core.therabyte import GROQ_API_KEY
 
 if GROQ_API_KEY and GROQ_API_KEY != "YOUR_GROQ_API_KEY_HERE":
     client = Groq(api_key=GROQ_API_KEY)
@@ -345,7 +345,7 @@ def get_calming_quote():
         d = res.json()
         if d: return {"quote": d[0]["q"], "author": d[0]["a"]}
     except: pass
-    return {"quote": "You are not alone. Every step forward matters.", "author": "MindBridge AI"}
+    return {"quote": "You are not alone. Every step forward matters.", "author": "TheraByte AI"}
 
 
 # ═══════════════════════════════════════════════════════════

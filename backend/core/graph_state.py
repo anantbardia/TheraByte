@@ -1,12 +1,12 @@
 """
-MindBridge AI — LangGraph Shared State Definition
+TheraByte AI — LangGraph Shared State Definition
 This TypedDict flows through every node in the graph,
 carrying all data from input to final response.
 """
 from typing import TypedDict, List, Dict, Any, Optional
 
 
-class MindBridgeState(TypedDict):
+class TheraByteState(TypedDict):
     # ── Input ──────────────────────────────────────────────
     messages: List[Dict[str, str]]    # Full conversation history
     user_id: str

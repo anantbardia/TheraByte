@@ -1,5 +1,5 @@
 """
-MindBridge AI — Custom Model Inference
+TheraByte AI — Custom Model Inference
 Loads trained models and provides prediction functions.
 These run locally — no API key needed, instant results.
 """
@@ -66,7 +66,7 @@ def predict_crisis(text: str) -> dict:
         "is_crisis": is_crisis,
         "confidence": round(crisis_prob, 3),
         "risk_score": risk_score,
-        "model": "mindbridge-crisis-v1"
+        "model": "therabyte-crisis-v1"
     }
 
 
@@ -91,7 +91,7 @@ def predict_emotion(text: str) -> dict:
         "emotion": prediction,
         "confidence": round(max_confidence, 3),
         "all_probabilities": proba_map,
-        "model": "mindbridge-emotion-v1"
+        "model": "therabyte-emotion-v1"
     }
 
 
@@ -111,7 +111,7 @@ def predict_distortions(text: str) -> list:
 
     return {
         "distortions": detected,
-        "model": "mindbridge-distortion-v1"
+        "model": "therabyte-distortion-v1"
     }
 
 
@@ -129,8 +129,8 @@ def analyze_message(text: str) -> dict:
         "emotion": emotion,
         "distortions": distortions,
         "models_used": [
-            "mindbridge-crisis-v1",
-            "mindbridge-emotion-v1",
-            "mindbridge-distortion-v1"
+            "therabyte-crisis-v1",
+            "therabyte-emotion-v1",
+            "therabyte-distortion-v1"
         ]
     }
