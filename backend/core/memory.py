@@ -7,48 +7,56 @@ import uuid
 # Provide absolute path for ChromaDB storage
 CHROMA_DB_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "chroma_data")
 
-# Initialize persistent ChromaDB client
-try:
-    client = chromadb.PersistentClient(path=CHROMA_DB_DIR, settings=Settings(allow_reset=True, anonymized_telemetry=False))
-except Exception as e:
-    print(f"Failed to initialize ChromaDB Client: {e}")
-    client = None
+import os
+import chromadb
+from chromadb.config import Settings
+import uuid
 
-# Use Sentence Transformers directly (more reliable repo than ONNX S3)
-try:
-    hf_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
-except Exception as e:
-    print(f"Failed to load sentence transformer: {e}")
-    hf_ef = None
+# Provide absolute path for ChromaDB storage
+CHROMA_DB_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "chroma_data")
 
-# Create or get the main collection for conversation memory
-if client:
+# Global variables for lazy loading
+_client = None
+_memory_collection = None
+
+def _get_collection():
+    """Lazily initializes the ChromaDB client and collection on first use to prevent blocking app startup."""
+    global _client, _memory_collection
+    
+    if _memory_collection is not None:
+        return _memory_collection
+
     try:
-        memory_collection = client.get_or_create_collection(
+        if _client is None:
+            _client = chromadb.PersistentClient(path=CHROMA_DB_DIR, settings=Settings(allow_reset=True, anonymized_telemetry=False))
+            
+        # Wait to get/create the collection. ChromaDB's default embedding function
+        # uses the ONNX version of all-MiniLM-L6-v2 which doesn't require PyTorch.
+        # This saves ~1.5GB of RAM and starts instantly.
+        _memory_collection = _client.get_or_create_collection(
             name="mindbridge_memories",
-            embedding_function=hf_ef,
-            metadata={"hnsw:space": "cosine"} # Use cosine similarity for semantic search
+            metadata={"hnsw:space": "cosine"}
         )
     except Exception as e:
         if "Embedding function conflict" in str(e) or "already exists" in str(e):
             print("Embedding function conflict detected. Recreating collection...")
-            client.delete_collection("mindbridge_memories")
-            memory_collection = client.get_or_create_collection(
-                name="mindbridge_memories",
-                embedding_function=hf_ef,
-                metadata={"hnsw:space": "cosine"}
-            )
+            if _client:
+                _client.delete_collection("mindbridge_memories")
+                _memory_collection = _client.get_or_create_collection(
+                    name="mindbridge_memories",
+                    metadata={"hnsw:space": "cosine"}
+                )
         else:
             print(f"Error initializing ChromaDB Collection: {e}")
-            memory_collection = None
-else:
-    memory_collection = None
+            
+    return _memory_collection
 
 def store_memory(user_id: str, role: str, content: str):
     """
     Stores a conversational message into the vector database.
     """
-    if not memory_collection:
+    collection = _get_collection()
+    if not collection:
         return
         
     # We only want to store meaningful content, ignore very short/empty messages
@@ -64,7 +72,7 @@ def store_memory(user_id: str, role: str, content: str):
     }
 
     try:
-        memory_collection.add(
+        collection.add(
             documents=[content],
             metadatas=[metadata],
             ids=[doc_id]
@@ -76,11 +84,12 @@ def retrieve_relevant_memories(user_id: str, query: str, k: int = 3) -> str:
     """
     Retrieves the top-k most semantically similar past interactions for a specific user.
     """
-    if not memory_collection:
+    collection = _get_collection()
+    if not collection:
         return ""
         
     try:
-        results = memory_collection.query(
+        results = collection.query(
             query_texts=[query],
             n_results=k,
             where={"user_id": user_id} # Only query memories belonging to this user

@@ -10,17 +10,21 @@ import joblib
 MODELS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models")
 
 # ═══════════════════════════════════════════════════════════
-# Load Models (once at startup)
+# Load Models (Lazy Loaded)
 # ═══════════════════════════════════════════════════════════
 
 _crisis_model = None
 _emotion_model = None
 _distortion_model = None
 _distortion_labels = None
+_models_loaded = False
 
 
 def _load_models():
-    global _crisis_model, _emotion_model, _distortion_model, _distortion_labels
+    global _crisis_model, _emotion_model, _distortion_model, _distortion_labels, _models_loaded
+    if _models_loaded:
+        return
+        
     try:
         _crisis_model = joblib.load(os.path.join(MODELS_DIR, "crisis_detector.joblib"))
     except:
@@ -34,9 +38,8 @@ def _load_models():
         _distortion_labels = joblib.load(os.path.join(MODELS_DIR, "distortion_labels.joblib"))
     except:
         pass
-
-
-_load_models()
+        
+    _models_loaded = True
 
 
 # ═══════════════════════════════════════════════════════════
@@ -48,6 +51,7 @@ def predict_crisis(text: str) -> dict:
     Predict crisis probability for a given text.
     Returns: {"is_crisis": bool, "confidence": float, "risk_score": int}
     """
+    _load_models()
     if _crisis_model is None:
         return {"is_crisis": False, "confidence": 0, "risk_score": 0, "model": "unavailable"}
 
@@ -68,9 +72,10 @@ def predict_crisis(text: str) -> dict:
 
 def predict_emotion(text: str) -> dict:
     """
-    Predict the primary emotion in a text.
-    Returns: {"emotion": str, "confidence": float, "all_probabilities": dict}
+    Classify emotional tone of the text.
+    Returns: {"label": str, "confidence": float}
     """
+    _load_models()
     if _emotion_model is None:
         return {"emotion": "unknown", "confidence": 0, "model": "unavailable"}
 
@@ -90,11 +95,12 @@ def predict_emotion(text: str) -> dict:
     }
 
 
-def predict_distortions(text: str) -> dict:
+def predict_distortions(text: str) -> list:
     """
-    Detect cognitive distortions in text (multi-label).
-    Returns: {"distortions": list, "model": str}
+    Detect cognitive distortions in the text.
+    Returns: [{"distortion": str, "confidence": float}, ...]
     """
+    _load_models()
     if _distortion_model is None or _distortion_labels is None:
         return {"distortions": [], "model": "unavailable"}
 
