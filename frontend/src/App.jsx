@@ -15,7 +15,7 @@ import CommunityGroups from './pages/CommunityGroups'
 import Assessment from './pages/Assessment'
 import SessionFeedback from './pages/SessionFeedback'
 import TermsAndConditions from './pages/TermsAndConditions'
-import NeuralBackground from './components/NeuralBackground'
+import { NoiseOverlay } from './components/Decorations'
 import './App.css'
 
 function AppContent({ auth, setAuth, logout }) {
@@ -80,7 +80,7 @@ function App() {
 
   return (
     <>
-      <NeuralBackground />
+      <NoiseOverlay />
       <AppContent auth={auth} setAuth={setAuth} logout={logout} />
     </>
   )

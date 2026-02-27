@@ -16,3 +16,5 @@ Thumbs.db
 # Project specific
 backend/AIpsycho.db
 backend/app.log
+backend/mindbridge.db
+backend/chroma_data/

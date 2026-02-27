@@ -1,71 +1,71 @@
-/* TherapistPatients — TheraByte v7 */
+/* ════════════════════════════════════════
+   TherapistPatients  — Soft & Spacious
+════════════════════════════════════════ */
 .tp-page {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 32px 28px;
+    padding: 40px;
 }
 
 .tp-header-row {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    margin-bottom: 28px;
+    margin-bottom: 40px;
 }
 
 .tp-page h1 {
     font-family: var(--font-display);
-    font-size: 26px;
-    font-weight: 800;
+    font-size: 28px;
+    font-weight: 500;
     color: var(--text-primary);
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
 }
 
 .tp-desc {
-    font-size: 13.5px;
+    font-size: 15px;
     color: var(--text-muted);
-    margin-top: 4px;
-    font-weight: 500;
+    margin-top: 8px;
 }
 
 /* Skeleton */
 .tp-loading {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
     padding: 32px 0;
 }
 
 .tp-skeleton {
-    height: 64px;
-    border-radius: var(--r-lg);
-    background: linear-gradient(90deg, rgba(17, 50, 85, 0.05) 25%, rgba(255, 255, 255, 0.6) 50%, rgba(17, 50, 85, 0.05) 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.6s ease-in-out infinite;
+    height: 72px;
+    border-radius: var(--r-2xl);
+    background: rgba(46, 43, 42, 0.03);
+    animation: pulseSoft 2s infinite;
 }
 
 /* KPI */
 .tp-kpis {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-bottom: 28px;
+    gap: 20px;
+    margin-bottom: 32px;
 }
 
 .tp-kpi {
-    background: rgba(255, 255, 255, 0.88);
-    border: 1px solid rgba(17, 50, 85, 0.07);
-    border-radius: var(--r-xl);
-    padding: 20px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: var(--r-2xl);
+    padding: 32px;
     text-align: center;
-    box-shadow: var(--shadow-card);
-    backdrop-filter: blur(12px);
-    transition: all var(--t-base) var(--ease);
-    animation: fadeUp 0.4s var(--ease) forwards;
+    box-shadow: 0 8px 32px rgba(46, 43, 42, 0.04);
+    transition: all var(--t-base);
+    animation: fadeUp 0.6s var(--ease) forwards;
     opacity: 0;
 }
 
 .tp-kpi:nth-child(1) {
-    animation-delay: .04s
+    animation-delay: .05s
 }
 
 .tp-kpi:nth-child(2) {
@@ -73,37 +73,36 @@
 }
 
 .tp-kpi:nth-child(3) {
-    animation-delay: .16s
+    animation-delay: .15s
 }
 
 .tp-kpi:nth-child(4) {
-    animation-delay: .22s
+    animation-delay: .20s
 }
 
 .tp-kpi:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: rgba(121, 193, 176, 0.25);
+    box-shadow: 0 8px 24px rgba(46, 43, 42, 0.05);
+    border-color: rgba(46, 43, 42, 0.08);
 }
 
 .k-label {
     display: block;
-    font-size: 10.5px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--text-faint);
-    font-weight: 700;
+    color: var(--text-muted);
+    font-weight: 600;
     margin-bottom: 8px;
 }
 
 .k-value {
     font-family: var(--font-display);
-    font-size: 36px;
-    font-weight: 800;
-    color: var(--primary-navy);
-    letter-spacing: -0.04em;
+    font-size: 40px;
+    font-weight: 400;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
     line-height: 1;
-    animation: countUp 0.5s var(--ease) forwards;
 }
 
 .tp-kpi.danger .k-value {
@@ -118,17 +117,17 @@
 .tp-sections {
     display: grid;
     grid-template-columns: 1.6fr 1fr;
-    gap: 16px;
+    gap: 20px;
 }
 
 .tp-section {
-    background: rgba(255, 255, 255, 0.88);
-    border: 1px solid rgba(17, 50, 85, 0.06);
-    border-radius: var(--r-xl);
-    padding: 22px 24px;
-    box-shadow: var(--shadow-card);
-    backdrop-filter: blur(12px);
-    animation: fadeUp 0.5s var(--ease) forwards;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: var(--r-2xl);
+    padding: 32px;
+    box-shadow: 0 8px 32px rgba(46, 43, 42, 0.04);
+    animation: fadeUp 0.6s var(--ease) forwards;
     opacity: 0;
 }
 
@@ -142,38 +141,37 @@
 
 .tp-section h2 {
     font-family: var(--font-display);
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 500;
     color: var(--text-primary);
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    letter-spacing: -0.01em;
+    gap: 12px;
 }
 
 .tp-section-badge {
     display: inline-flex;
     align-items: center;
-    padding: 2px 8px;
+    padding: 4px 12px;
     border-radius: var(--r-full);
-    background: rgba(121, 193, 176, 0.10);
-    color: #2a8a78;
-    font-size: 11px;
-    font-weight: 700;
-    border: 1px solid rgba(121, 193, 176, 0.25);
+    background: var(--teal-50);
+    color: var(--teal-700);
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid transparent;
 }
 
 .tp-section-badge.red {
-    background: var(--red-100);
+    background: var(--red-50);
     color: var(--red-700);
-    border-color: rgba(220, 38, 38, 0.20);
+    border-color: rgba(220, 38, 38, 0.15);
 }
 
 .tp-empty {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--text-muted);
-    padding: 20px 0;
+    padding: 32px 0;
     text-align: center;
     line-height: 1.6;
 }
@@ -182,14 +180,14 @@
 .tp-patient-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
 }
 
 .tp-scrollable-list {
-    max-height: 400px;
+    max-height: 480px;
     overflow-y: auto;
-    padding-right: 4px;
-    margin-right: -4px;
+    padding-right: 8px;
+    margin-right: -8px;
 }
 
 /* Custom Scrollbar */
@@ -202,27 +200,28 @@
 }
 
 .tp-scrollable-list::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 10px;
+    background: rgba(46, 43, 42, 0.1);
+    border-radius: var(--r-full);
 }
 
 .tp-scrollable-list::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(46, 43, 42, 0.2);
 }
 
 .patient-row {
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 13px 16px;
-    border-radius: var(--r-lg);
-    border: 1.5px solid rgba(17, 50, 85, 0.07);
+    gap: 16px;
+    padding: 20px 24px;
+    border-radius: var(--r-2xl);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     text-decoration: none;
-    transition: all var(--t-base) var(--ease);
-    background: rgba(255, 255, 255, 0.75);
+    transition: all var(--t-base);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 16px rgba(46, 43, 42, 0.02);
     position: relative;
     overflow: hidden;
-    backdrop-filter: blur(8px);
 }
 
 .patient-row::before {
@@ -231,25 +230,25 @@
     left: 0;
     top: 0;
     bottom: 0;
-    width: 3px;
+    width: 4px;
     background: transparent;
     transition: background var(--t-base);
 }
 
 .patient-row:hover {
     background: rgba(255, 255, 255, 0.95);
-    box-shadow: var(--shadow-sm);
-    border-color: rgba(121, 193, 176, 0.30);
-    transform: translateX(2px);
+    box-shadow: 0 4px 12px rgba(46, 43, 42, 0.04);
+    border-color: rgba(46, 43, 42, 0.08);
+    transform: translateX(4px);
 }
 
 .patient-row:hover::before {
-    background: var(--primary-mint);
+    background: var(--teal-400);
 }
 
 .patient-row.high-risk {
-    border-color: rgba(220, 38, 38, 0.18);
-    background: rgba(255, 250, 250, 0.90);
+    border-color: rgba(220, 38, 38, 0.15);
+    background: var(--red-50);
 }
 
 .patient-row.high-risk::before {
@@ -262,15 +261,15 @@
 }
 
 .pr-avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--r-full);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: var(--font-display);
-    font-size: 14px;
-    font-weight: 800;
+    font-size: 15px;
+    font-weight: 500;
     color: white;
     position: relative;
     z-index: 1;
@@ -278,7 +277,7 @@
 
 .pr-risk-ring {
     position: absolute;
-    inset: -3px;
+    inset: -4px;
     z-index: 0;
 }
 
@@ -290,8 +289,8 @@
 .pr-name {
     display: block;
     font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 13.5px;
+    font-weight: 500;
+    font-size: 15px;
     color: var(--text-primary);
     white-space: nowrap;
     overflow: hidden;
@@ -301,115 +300,112 @@
 .pr-meta {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 2px;
+    gap: 12px;
+    margin-top: 4px;
 }
 
 .pr-id {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--text-muted);
-    font-weight: 500;
-    font-family: var(--font-mono);
 }
 
 .pr-risk {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 2px;
+    gap: 4px;
     flex-shrink: 0;
 }
 
 .pr-risk-score {
     font-family: var(--font-display);
-    font-size: 19px;
-    font-weight: 800;
-    letter-spacing: -0.03em;
+    font-size: 20px;
+    font-weight: 500;
     line-height: 1;
 }
 
 .pr-risk-label {
-    font-size: 10px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.04em;
+    color: var(--text-muted);
 }
 
 .pr-arrow {
-    color: var(--text-faint);
+    color: var(--text-muted);
     flex-shrink: 0;
 }
 
 /* Heatmap */
 .tp-heatmap {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(18px, 1fr));
-    gap: 4px;
+    grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
+    gap: 6px;
 }
 
 .hm-cell {
     aspect-ratio: 1;
-    border-radius: 4px;
-    min-height: 18px;
+    border-radius: 6px;
+    min-height: 20px;
     transition: transform var(--t-fast);
     cursor: pointer;
 }
 
 .hm-cell:hover {
-    transform: scale(1.35);
+    transform: scale(1.15);
+    box-shadow: 0 4px 12px rgba(46, 43, 42, 0.1);
 }
 
 /* Mood timeline */
 .tp-moods {
     display: flex;
     flex-direction: column;
-    gap: 9px;
+    gap: 16px;
 }
 
 .mood-row {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 16px;
 }
 
 .mr-time {
-    font-size: 10.5px;
-    color: var(--text-faint);
-    font-weight: 500;
-    width: 44px;
+    font-size: 12px;
+    color: var(--text-muted);
+    width: 48px;
     flex-shrink: 0;
     font-variant-numeric: tabular-nums;
 }
 
 .mr-dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    background: var(--primary-mint);
+    background: var(--teal-400);
     flex-shrink: 0;
-    box-shadow: 0 0 0 3px rgba(121, 193, 176, 0.15);
+    box-shadow: 0 0 0 4px rgba(126, 191, 181, 0.15);
 }
 
 .mr-label {
-    font-family: var(--font-body);
-    font-weight: 600;
-    color: var(--text-secondary);
-    font-size: 13px;
+    font-size: 14px;
+    color: var(--text-primary);
 }
 
 /* ── Mobile Responsiveness ── */
 @media (max-width: 768px) {
     .tp-page {
-        padding: 24px 16px;
+        padding: 24px;
     }
 
     .tp-header-row {
         flex-direction: column;
-        gap: 16px;
+        gap: 20px;
     }
 
     .tp-kpis {
         grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
     }
 
     .tp-sections {
@@ -418,21 +414,17 @@
 
     .patient-row {
         flex-wrap: wrap;
-        padding: 12px;
+        padding: 16px;
     }
 
     .pr-risk {
         align-items: flex-start;
         width: 100%;
         flex-direction: row;
-        gap: 8px;
-        margin-top: 8px;
-        padding-top: 8px;
-        border-top: 1px solid rgba(17, 50, 85, 0.05);
-    }
-
-    .pr-risk-label {
-        margin-top: 6px;
+        gap: 12px;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(46, 43, 42, 0.04);
     }
 
     .pr-arrow {

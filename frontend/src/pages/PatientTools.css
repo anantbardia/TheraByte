@@ -1,52 +1,55 @@
 /* ════════════════════════════════════════
-   PatientTools  — v6
+   PatientTools  — Soft & Calming
 ════════════════════════════════════════ */
 .tools-page {
-    max-width: 960px;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 32px 28px;
+    padding: 40px;
 }
 
 .tools-page h1 {
     font-family: var(--font-display);
-    font-size: 26px;
-    font-weight: 800;
-    color: var(--slate-900);
-    letter-spacing: -0.025em;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
 }
 
 .tools-desc {
-    font-size: 13.5px;
-    color: var(--slate-400);
-    font-weight: 500;
-    margin: 4px 0 28px;
+    font-size: 15px;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-bottom: 40px;
 }
 
 .tools-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    gap: 20px;
 }
 
 .tool-card {
-    padding: 24px 22px;
-    background: white;
-    border: 1px solid var(--stone-200);
-    border-radius: var(--r-xl);
-    box-shadow: var(--shadow-xs);
+    padding: 32px 24px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: var(--r-2xl);
+    box-shadow: 0 8px 32px rgba(46, 43, 42, 0.04);
+    /* Deeper stitch loop shadow */
     cursor: pointer;
-    transition: all var(--t-base) var(--ease);
+    transition: all var(--t-base);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     position: relative;
     overflow: hidden;
-    animation: fadeUp 0.4s var(--ease) forwards;
+    animation: fadeUp 0.6s var(--ease) forwards;
     opacity: 0;
 }
 
 .tool-card:nth-child(1) {
-    animation-delay: .04s
+    animation-delay: .05s
 }
 
 .tool-card:nth-child(2) {
@@ -54,51 +57,36 @@
 }
 
 .tool-card:nth-child(3) {
-    animation-delay: .16s
+    animation-delay: .15s
 }
 
 .tool-card:nth-child(4) {
-    animation-delay: .22s
+    animation-delay: .20s
 }
 
 .tool-card:nth-child(5) {
-    animation-delay: .28s
+    animation-delay: .25s
 }
 
 .tool-card:nth-child(6) {
-    animation-delay: .34s
-}
-
-.tool-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--teal-600), var(--teal-400));
-    opacity: 0;
-    transition: opacity var(--t-base);
+    animation-delay: .30s
 }
 
 .tool-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--teal-200);
-}
-
-.tool-card:hover::before {
-    opacity: 1;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(46, 43, 42, 0.06);
+    border-color: rgba(46, 43, 42, 0.08);
 }
 
 .tool-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: var(--r-md);
+    width: 48px;
+    height: 48px;
+    border-radius: var(--r-full);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    margin-bottom: 8px;
 }
 
 .tc-teal {
@@ -107,50 +95,94 @@
 }
 
 .tc-amber {
-    background: var(--amber-100);
+    background: var(--amber-50);
     color: var(--amber-700);
 }
 
 .tc-green {
-    background: var(--green-100);
+    background: var(--green-50);
     color: var(--green-700);
 }
 
 .tc-slate {
-    background: var(--slate-100);
-    color: var(--slate-600);
+    background: var(--bg-base);
+    color: var(--text-secondary);
 }
 
 .tool-card h3 {
     font-family: var(--font-display);
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--slate-900);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-primary);
     letter-spacing: -0.01em;
 }
 
 .tool-card p {
-    font-size: 13px;
-    color: var(--slate-500);
-    line-height: 1.65;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 8px;
+    flex: 1;
+    /* Pushes the tag to the bottom if desc is short */
 }
 
 .tool-tag {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--teal-600);
-    background: var(--teal-50);
-    border: 1px solid var(--teal-100);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--bg-base);
     border-radius: var(--r-full);
-    padding: 3px 10px;
+    padding: 6px 14px;
     width: fit-content;
-    letter-spacing: 0.02em;
-    margin-top: 4px;
+}
+
+/* ── Specific Overrides for prescribed/assessment sections inside PatientTools.jsx ── */
+.prescribed-container {
+    margin-bottom: 32px;
+    background: rgba(121, 193, 176, 0.15);
+    /* Soft glass teal */
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(126, 191, 181, 0.3);
+    border-radius: var(--r-2xl);
+    padding: 32px;
+    box-shadow: 0 8px 32px rgba(46, 43, 42, 0.04);
+}
+
+.prescribed-card {
+    background: white;
+    box-shadow: 0 8px 24px rgba(126, 191, 181, 0.15);
+    border-color: transparent !important;
+}
+
+.assessment-banner {
+    margin-bottom: 40px;
+    padding: 40px;
+    background: linear-gradient(135deg, var(--teal-200), var(--teal-100));
+    border-radius: var(--r-2xl);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 @media (max-width: 768px) {
+    .tools-page {
+        padding: 24px;
+    }
+
     .tools-grid {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .assessment-banner {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+        padding: 32px 24px;
+    }
+
+    .assessment-banner div {
+        max-width: 100%;
     }
 }
 

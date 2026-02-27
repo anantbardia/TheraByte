@@ -1,4 +1,5 @@
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
+import { SoftBlob, FloatingRing, DotGrid } from '../components/Decorations'
 import './PatientApp.css'
 
 const I = {
@@ -18,6 +19,12 @@ const PatientApp = ({ auth, onLogout }) => {
 
     return (
         <div className="platform-shell">
+            {/* ── Soft Background Decor for the entire patient app ── */}
+            <DotGrid style={{ zIndex: 0 }} />
+            <SoftBlob color="var(--primary-mint-dim)" size={400} style={{ top: '-10%', right: '-10%' }} />
+            <FloatingRing color="rgba(219, 156, 116, 0.15)" size={200} thickness={1} style={{ bottom: '10%', right: '5%' }} />
+            <SoftBlob color="rgba(162, 210, 202, 0.1)" size={300} style={{ bottom: '-5%', left: '10%' }} className="delay-3" />
+
             <aside className="platform-sidebar">
                 <div className="ps-brand">
                     <img src="/images/therabyte-icon.png" alt="TheraByte" style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '4px' }} />

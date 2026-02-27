@@ -10,94 +10,93 @@
    COLOR SYSTEM — Teal / Slate / Stone / Amber
 ══════════════════════════════════════════ */
 :root {
-  /* ── Primary: Deep Teal ── */
-  --teal-950: #042f2e;
-  --teal-900: #134e4a;
-  --teal-800: #115e59;
-  --teal-700: #0f766e;
-  --teal-600: #0d9488;
-  --teal-500: #14b8a6;
-  --teal-400: #2dd4bf;
-  --teal-300: #5eead4;
-  --teal-200: #99f6e4;
-  --teal-100: #ccfbf1;
-  --teal-50: #f0fdfa;
+  /* ── Primary: Soft Sage / Mint Green ── */
+  --teal-900: #1a3636;
+  --teal-800: #295251;
+  --teal-700: #386b6a;
+  --teal-600: #4a8c8a;
+  --teal-500: #5caaa8;
+  --teal-400: #7ebfb5;
+  --teal-300: #a2d2ca;
+  --teal-200: #c9e6e1;
+  --teal-100: #e3f3f0;
+  --teal-50: #f2f9f8;
 
-  /* ── Secondary: Slate ── */
-  --slate-950: #020617;
-  --slate-900: #0f172a;
-  --slate-800: #1e293b;
-  --slate-700: #334155;
-  --slate-600: #475569;
-  --slate-500: #64748b;
-  --slate-400: #94a3b8;
-  --slate-300: #cbd5e1;
-  --slate-200: #e2e8f0;
-  --slate-100: #f1f5f9;
-  --slate-50: #f8fafc;
+  /* ── Secondary / Neutral: Warm Stone / Sand ── */
+  --slate-900: #2e2b2a;
+  --slate-800: #4a4543;
+  --slate-700: #665f5c;
+  --slate-600: #857d79;
+  --slate-500: #a39b97;
+  --slate-400: #bfaba2;
+  --slate-300: #d6cfcb;
+  --slate-200: #e8e4e1;
+  --slate-100: #f5f3f1;
+  --slate-50: #faf9f8;
 
-  /* ── Neutral: Stone ── */
-  --stone-950: #0c0a09;
-  --stone-900: #1c1917;
-  --stone-800: #292524;
-  --stone-700: #44403c;
-  --stone-600: #57534e;
-  --stone-500: #78716c;
-  --stone-400: #a8a29e;
-  --stone-300: #d6d3d1;
-  --stone-200: #e7e5e4;
-  --stone-100: #f5f5f4;
-  --stone-50: #fafaf9;
+  /* ── Neutral: Warm Stone ── */
+  --stone-900: #2e2b2a;
+  --stone-800: #4a4543;
+  --stone-700: #665f5c;
+  --stone-600: #857d79;
+  --stone-500: #a39b97;
+  --stone-400: #bfaba2;
+  --stone-300: #d6cfcb;
+  --stone-200: #e8e4e1;
+  --stone-100: #f5f3f1;
+  --stone-50: #faf9f8;
 
-  /* ── Accent: Amber / Gold ── */
-  --amber-700: #b45309;
-  --amber-600: #d97706;
-  --amber-500: #f59e0b;
-  --amber-400: #fbbf24;
-  --amber-100: #fef3c7;
-  --amber-50: #fffbeb;
+  /* ── Accent: Soft Peach / Amber ── */
+  --amber-700: #a86f4a;
+  --amber-600: #c28863;
+  --amber-500: #db9c74;
+  --amber-400: #f0b590;
+  --amber-100: #fbeee6;
+  --amber-50: #fdf8f5;
 
-  /* ── Status ── */
-  --green-700: #15803d;
-  --green-600: #16a34a;
-  --green-500: #22c55e;
-  --green-100: #dcfce7;
-  --red-700: #b91c1c;
-  --red-600: #dc2626;
-  --red-500: #ef4444;
-  --red-100: #fee2e2;
+  /* ── Status (Softened) ── */
+  --green-700: #4a8260;
+  --green-600: #5e9c76;
+  --green-500: #75b88f;
+  --green-100: #e6f2eb;
+  --red-700: #a8585c;
+  --red-600: #c97a7e;
+  --red-500: #e69ea2;
+  --red-100: #fcebeb;
 
-  /* ── TheraByte Brand Colors ── */
-  --primary-mint: #79C1B0;
-  --primary-mint-light: #A4D9CE;
-  --primary-mint-dim: rgba(121, 193, 176, 0.12);
-  --primary-navy: #113255;
-  --primary-navy-dim: rgba(17, 50, 85, 0.08);
+  /* ── TheraByte Brand Colors (Softened) ── */
+  --primary-mint: #7ebfb5;
+  --primary-mint-light: #a2d2ca;
+  --primary-mint-dim: rgba(126, 191, 181, 0.12);
+  --primary-navy: #4a4543;
+  /* Replaced navy with warm stone for soft contrast */
+  --primary-navy-dim: rgba(74, 69, 67, 0.08);
 
   /* ══ SEMANTIC TOKENS ══ */
   /* Backgrounds — clean light base */
-  --bg-base: #F7FAFB;
-  --bg-surface: #FFFFFF;
-  --bg-card: rgba(255, 255, 255, 0.90);
-  --bg-elevated: #EEF4F7;
-  --bg-hover: rgba(121, 193, 176, 0.08);
-  --bg-active: rgba(121, 193, 176, 0.14);
-  --bg-dark: var(--primary-navy);
-  --bg-darker: #0B1C2E;
+  --bg-base: #faf9f8;
+  --bg-surface: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-elevated: #f5f3f1;
+  --bg-hover: rgba(126, 191, 181, 0.08);
+  --bg-active: rgba(126, 191, 181, 0.14);
+  --bg-dark: #e8e4e1;
+  /* Replaced dark with soft stone */
+  --bg-darker: #d6cfcb;
 
   /* Text */
-  --text-primary: #0D1B2A;
-  --text-secondary: #3A5068;
-  --text-muted: #6B87A0;
-  --text-faint: #9AAFC4;
-  --text-inverse: #FFFFFF;
+  --text-primary: #2e2b2a;
+  --text-secondary: #665f5c;
+  --text-muted: #a39b97;
+  --text-faint: #d6cfcb;
+  --text-inverse: #ffffff;
   --text-teal: var(--primary-mint);
 
   /* ── Legacy compat aliases ── */
-  --text-100: #0D1B2A;
-  --text-200: #1F3347;
-  --text-300: #3A5068;
-  --text-400: #6B87A0;
+  --text-100: #2e2b2a;
+  --text-200: #4a4543;
+  --text-300: #665f5c;
+  --text-400: #a39b97;
   --green: var(--green-600);
   --green-bg: var(--green-100);
   --red: var(--red-600);
@@ -106,55 +105,56 @@
   --amber-bg: var(--amber-100);
   --peach-soft: var(--stone-200);
   --peach-bg: var(--amber-50);
-  --lavender-bg: rgba(121, 193, 176, 0.06);
+  --lavender-bg: rgba(126, 191, 181, 0.06);
   --accent-soft: var(--primary-mint-light);
   --accent-color: var(--primary-mint);
 
-  /* Primary — mint is the CTA color */
+  /* Primary — sage/mint is the CTA color */
   --primary: var(--primary-mint);
   --primary-light: var(--primary-mint-light);
-  --primary-soft: rgba(121, 193, 176, 0.3);
-  --primary-dim: rgba(121, 193, 176, 0.10);
-  --primary-glow: rgba(121, 193, 176, 0.28);
-  --primary-border: rgba(121, 193, 176, 0.30);
+  --primary-soft: rgba(126, 191, 181, 0.3);
+  --primary-dim: rgba(126, 191, 181, 0.10);
+  --primary-glow: rgba(126, 191, 181, 0.20);
+  --primary-border: rgba(126, 191, 181, 0.30);
 
-  /* Accent — navy is the authority color */
-  --accent: var(--primary-navy);
-  --accent-dim: rgba(17, 50, 85, 0.07);
-  --accent-border: rgba(17, 50, 85, 0.15);
+  /* Accent — warm stone is the authority color */
+  --accent: var(--stone-700);
+  --accent-dim: rgba(102, 95, 92, 0.07);
+  --accent-border: rgba(102, 95, 92, 0.15);
 
   /* Borders */
-  --border: rgba(17, 50, 85, 0.08);
-  --border-card: rgba(17, 50, 85, 0.06);
-  --border-hover: rgba(121, 193, 176, 0.40);
-  --border-glass: rgba(255, 255, 255, 0.70);
-  --border-subtle: rgba(0, 0, 0, 0.04);
+  --border: rgba(102, 95, 92, 0.08);
+  --border-card: rgba(102, 95, 92, 0.06);
+  --border-hover: rgba(126, 191, 181, 0.40);
+  --border-glass: rgba(255, 255, 255, 0.80);
+  --border-subtle: rgba(0, 0, 0, 0.03);
 
-  /* Radius */
-  --r-xs: 5px;
-  --r-sm: 8px;
-  --r-md: 12px;
-  --r-lg: 16px;
-  --r-xl: 22px;
-  --r-2xl: 28px;
-  --r-3xl: 36px;
+  /* Radius (More Rounded, Softer) */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 16px;
+  --r-lg: 20px;
+  --r-xl: 24px;
+  --r-2xl: 32px;
+  --r-3xl: 40px;
   --r-full: 9999px;
 
-  /* Shadows — clean, light */
-  --shadow-xs: 0 1px 3px rgba(17, 50, 85, 0.05);
-  --shadow-sm: 0 2px 8px rgba(17, 50, 85, 0.07);
-  --shadow-md: 0 4px 20px rgba(17, 50, 85, 0.09);
-  --shadow-lg: 0 8px 40px rgba(17, 50, 85, 0.12);
-  --shadow-xl: 0 16px 60px rgba(17, 50, 85, 0.14);
-  --shadow-card: 0 2px 14px rgba(17, 50, 85, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-inner: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow-glow: 0 0 40px rgba(121, 193, 176, 0.22);
+  /* Shadows — calm, very subtle, defused */
+  --shadow-xs: 0 1px 2px rgba(46, 43, 42, 0.03);
+  --shadow-sm: 0 2px 6px rgba(46, 43, 42, 0.03);
+  --shadow-md: 0 6px 16px rgba(46, 43, 42, 0.04);
+  --shadow-lg: 0 12px 32px rgba(46, 43, 42, 0.05);
+  --shadow-xl: 0 24px 48px rgba(46, 43, 42, 0.06);
+  --shadow-card: 0 8px 30px rgba(46, 43, 42, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+  --shadow-glow: 0 0 40px rgba(126, 191, 181, 0.15);
 
 
   /* Layout */
-  --sidebar-width: 72px;
-  --header-height: 64px;
-  --content-max: 760px;
+  --sidebar-width: 80px;
+  --header-height: 72px;
+  --content-max: 800px;
+  /* Slightly wider, more breathable */
 
   /* Typography */
   --font-display: 'Sora', 'Inter', -apple-system, sans-serif;
@@ -162,12 +162,14 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   /* Motion */
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  /* Softer easing */
+  --ease-bounce: cubic-bezier(0.34, 1.2, 0.64, 1);
+  /* Less aggressive bounce */
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
-  --t-fast: 120ms;
-  --t-base: 200ms;
-  --t-slow: 340ms;
+  --t-fast: 150ms;
+  --t-base: 300ms;
+  --t-slow: 500ms;
 }
 
 /* ══ RESET ══ */
@@ -192,29 +194,31 @@ body {
   background: var(--bg-base);
   color: var(--text-primary);
   min-height: 100vh;
-  overflow: hidden;
-  line-height: 1.6;
+  overflow-x: hidden;
+  line-height: 1.7;
+  /* increased line height for readability */
+  letter-spacing: 0.01em;
   font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
 #root {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   position: relative;
 }
 
-/* ── Epic Deep Glow Background ── */
+/* ── Emotionally Safe Calm Background Gradient ── */
 #root::before {
   content: '';
   position: fixed;
   inset: 0;
   background-color: var(--bg-base);
   background-image:
-    radial-gradient(circle at 10% 20%, rgba(121, 193, 176, 0.12) 0%, transparent 60%),
-    radial-gradient(circle at 90% 80%, rgba(17, 50, 85, 0.8) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(121, 193, 176, 0.05) 0%, transparent 70%);
-  animation: meshFloat 22s ease-in-out infinite alternate;
+    radial-gradient(circle at 10% 20%, rgba(126, 191, 181, 0.05) 0%, transparent 60%),
+    radial-gradient(circle at 90% 80%, rgba(219, 156, 116, 0.03) 0%, transparent 70%),
+    radial-gradient(circle at 50% 50%, rgba(201, 230, 225, 0.08) 0%, transparent 60%);
+  animation: meshFloatSoft 25s ease-in-out infinite alternate;
   pointer-events: none;
   z-index: 0;
 }
@@ -262,17 +266,17 @@ textarea {
 /* ══════════════════════════════════════════
    KEYFRAMES
 ══════════════════════════════════════════ */
-@keyframes meshFloat {
+@keyframes meshFloatSoft {
   0% {
     transform: translate(0, 0) scale(1);
   }
 
   50% {
-    transform: translate(-12px, 8px) scale(1.01);
+    transform: translate(-10px, 6px) scale(1.01);
   }
 
   100% {
-    transform: translate(8px, -14px) scale(0.99);
+    transform: translate(6px, -10px) scale(0.99);
   }
 }
 

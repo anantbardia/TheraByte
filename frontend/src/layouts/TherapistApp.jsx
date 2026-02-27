@@ -1,9 +1,14 @@
 import { Outlet, NavLink } from 'react-router-dom'
+import { SoftBlob, DotGrid } from '../components/Decorations'
 import './TherapistApp.css'
 
 const TherapistApp = ({ auth, onLogout }) => {
     return (
         <div className="t-shell">
+            {/* ── Soft Background Decor for the entire therapist app ── */}
+            <DotGrid style={{ zIndex: 0 }} />
+            <SoftBlob color="rgba(126, 191, 181, 0.08)" size={500} style={{ top: '-10%', right: '-10%' }} />
+
             <header className="t-header">
                 <div className="t-header-left" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <img src="/images/therabyte-icon.png" alt="TheraByte" style={{ height: '34px', width: '34px', objectFit: 'contain' }} />

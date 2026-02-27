@@ -32,59 +32,65 @@ const PatientProfile = ({ auth }) => {
             ) : (
                 <div className="profile-grid">
                     <div className="profile-card glass">
-                        <h3>🎯 Trigger Themes</h3>
+                        <h3>Trigger Themes</h3>
                         {profile.trigger_themes?.length > 0 ? (
                             <div className="tag-list">
-                                {profile.trigger_themes.map((t, i) => <span key={i} className="tag">{t}</span>)}
+                                {profile.trigger_themes.map((t, i) => <span key={i} className="tag tag-soft">{t}</span>)}
                             </div>
                         ) : <p className="empty">No triggers identified yet. Continue sessions for analysis.</p>}
                     </div>
 
                     <div className="profile-card glass">
-                        <h3>🧠 Cognitive Distortions</h3>
+                        <h3>Cognitive Distortions</h3>
                         {profile.cognitive_distortions?.length > 0 ? (
                             <div className="tag-list">
-                                {profile.cognitive_distortions.map((d, i) => <span key={i} className="tag distortion">{d}</span>)}
+                                {profile.cognitive_distortions.map((d, i) => <span key={i} className="tag tag-warn">{d}</span>)}
                             </div>
                         ) : <p className="empty">No distortions detected yet.</p>}
                     </div>
 
                     <div className="profile-card glass">
-                        <h3>✅ Effective Interventions</h3>
+                        <h3>Effective Interventions</h3>
                         {profile.effective_interventions?.length > 0 ? (
                             <div className="tag-list">
-                                {profile.effective_interventions.map((v, i) => <span key={i} className="tag intervention">{v}</span>)}
+                                {profile.effective_interventions.map((v, i) => <span key={i} className="tag tag-success">{v}</span>)}
                             </div>
                         ) : <p className="empty">Interventions are tracked as sessions progress.</p>}
                     </div>
 
-                    <div className="profile-card glass full-width" style={{ borderLeft: '4px solid var(--primary-accent)' }}>
-                        <h3>📈 Session Analytics & Sentiment Shift</h3>
-                        <p className="notes-text" style={{ marginBottom: '12px', fontSize: '13px' }}>
-                            TheraByte AI calculates quantifiable sentiment shifts across therapy sessions to prove efficacy.
+                    <div className="profile-card glass full-width profile-card-highlight">
+                        <h3>Session Analytics & Sentiment Shift</h3>
+                        <p className="notes-text" style={{ marginBottom: '16px', fontSize: '14px' }}>
+                            TheraByte AI calculates quantifiable sentiment shifts across therapy sessions to monitor progress.
                         </p>
-                        <div style={{ display: 'flex', gap: '30px', alignItems: 'center', background: 'var(--stone-100)', padding: '20px', borderRadius: '12px' }}>
-                            <div>
-                                <div style={{ fontSize: '32px', fontWeight: 'bold', color: insights?.sentiment_trend === 'Downward' ? 'var(--red)' : 'var(--green)' }}>
+                        <div className="sentiment-bar-container">
+                            <div className="sentiment-stat">
+                                <div className={`stat-large ${insights?.sentiment_trend === 'Downward' ? 'text-red' : 'text-green'}`}>
                                     {insights?.sentiment_shift || '+0%'}
                                 </div>
-                                <div style={{ fontSize: '12px', color: 'var(--slate-500)' }}>Avg Mood Improvement per Session</div>
+                                <div className="stat-label">Avg Mood Improvement per Session</div>
                             </div>
-                            <div style={{ flex: 1, height: '60px', borderLeft: '1px solid var(--stone-300)', paddingLeft: '30px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <div style={{ flex: 1, height: '8px', background: 'var(--stone-200)', borderRadius: '4px', position: 'relative' }}>
-                                    <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: insights?.sentiment_trend === 'Downward' ? '30%' : '65%', background: insights?.sentiment_trend === 'Downward' ? 'linear-gradient(90deg, var(--red), var(--amber))' : 'linear-gradient(90deg, var(--amber), var(--green))', borderRadius: '4px' }} />
+                            <div className="sentiment-track-wrap">
+                                <div className="sentiment-track">
+                                    <div
+                                        className="sentiment-fill"
+                                        style={{
+                                            width: insights?.sentiment_trend === 'Downward' ? '30%' : '65%',
+                                            background: insights?.sentiment_trend === 'Downward' ? 'linear-gradient(90deg, var(--red-400), var(--amber-400))' : 'linear-gradient(90deg, var(--amber-400), var(--green-400))'
+                                        }}
+                                    />
                                 </div>
-                                <span style={{ fontSize: '12px', fontWeight: '600', color: 'var(--slate-600)' }}>Current Trend: {insights?.sentiment_trend || 'Stable'}</span>
+                                <span className="trend-label">Current Trend: {insights?.sentiment_trend || 'Stable'}</span>
                             </div>
                         </div>
                     </div>
 
                     <div className="profile-card glass">
-                        <h3>📊 Risk Trend</h3>
+                        <h3>Risk Trend</h3>
                         {profile.risk_trend?.length > 0 ? (
                             <div className="risk-bars">
                                 {profile.risk_trend.map((r, i) => (
-                                    <div key={i} className="risk-bar" style={{ height: `${r}%`, background: r > 70 ? 'var(--red)' : r > 30 ? 'var(--amber)' : 'var(--green)' }} title={`Risk: ${r}`} />
+                                    <div key={i} className={`risk-bar ${r > 70 ? 'bg-red' : r > 30 ? 'bg-amber' : 'bg-green'}`} style={{ height: `${r}%` }} title={`Risk: ${r}`} />
                                 ))}
                             </div>
                         ) : <p className="empty">Risk data builds over multiple sessions.</p>}
@@ -92,29 +98,29 @@ const PatientProfile = ({ auth }) => {
 
                     {insights && !insights.error && (
                         <>
-                            <div className="profile-card glass full-width" style={{ borderLeft: '4px solid var(--primary-accent)' }}>
-                                <h3>💡 AI Overall Assessment</h3>
+                            <div className="profile-card glass full-width profile-card-highlight">
+                                <h3>AI Overall Assessment</h3>
                                 <p className="notes-text">{insights.overall_assessment}</p>
                             </div>
 
                             <div className="profile-card glass">
-                                <h3>🔍 Detected Patterns</h3>
+                                <h3>Detected Patterns</h3>
                                 {insights.patterns_detected?.length > 0 ? (
                                     <div className="tag-list">
-                                        {insights.patterns_detected.map((p, i) => <span key={i} className="tag">{p}</span>)}
+                                        {insights.patterns_detected.map((p, i) => <span key={i} className="tag tag-soft">{p}</span>)}
                                     </div>
                                 ) : <p className="empty">None identified.</p>}
                             </div>
 
                             <div className="profile-card glass">
-                                <h3>🛠️ Recommended Approach</h3>
+                                <h3>Recommended Approach</h3>
                                 <p className="notes-text">{insights.therapeutic_approach}</p>
                             </div>
                         </>
                     )}
 
                     <div className="profile-card glass full-width">
-                        <h3>📝 Notes</h3>
+                        <h3>Notes</h3>
                         <p className="notes-text">{profile.notes || 'No clinical notes yet.'}</p>
                     </div>
                 </div>

@@ -82,28 +82,28 @@ const PatientTools = ({ auth }) => {
             </div>
 
             {hasAssigned && (
-                <div style={{ marginBottom: 32, background: 'rgba(121, 193, 176, 0.1)', border: '1px solid var(--primary-mint)', borderRadius: 'var(--r-xl)', padding: 24 }}>
-                    <h3 style={{ color: 'var(--primary-navy)', display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
+                <div className="prescribed-container">
+                    <h3 style={{ color: 'var(--teal-800)', display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20, fontSize: '18px', fontWeight: 500 }}>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
                         Prescribed by your Therapist
                     </h3>
-                    <div className="tool-card" style={{ background: 'white', borderColor: 'var(--primary-mint-light)', boxShadow: '0 8px 24px rgba(121, 193, 176, 0.15)' }}>
-                        <div className="tool-icon tc-amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" /></svg></div>
-                        <h3 style={{ fontSize: '1.2rem' }}>CBT Thought Journal</h3>
-                        <p>Your therapist recommended this based on your recent session. Write automatic thoughts and reframe them.</p>
-                        <button className="btn-primary" style={{ marginTop: 16, width: '100%' }}>Start Exercise</button>
+                    <div className="tool-card prescribed-card">
+                        <div className="tool-icon tc-amber"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" /></svg></div>
+                        <h3 style={{ fontSize: '18px' }}>CBT Thought Journal</h3>
+                        <p style={{ fontSize: '15px' }}>Your therapist recommended this based on your recent session. Write automatic thoughts and reframe them.</p>
+                        <button className="btn-primary" style={{ marginTop: 20, width: '100%' }}>Start Exercise</button>
                     </div>
                 </div>
             )}
 
-            <div style={{ marginBottom: 32, padding: 32, background: 'linear-gradient(135deg, var(--primary-mint), var(--primary-navy))', borderRadius: 'var(--r-xl)', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ maxWidth: '60%' }}>
-                    <h2 style={{ color: 'white', marginBottom: 8 }}>AI Mental Health Assessment</h2>
-                    <p style={{ opacity: 0.9, lineHeight: 1.5, margin: 0 }}>Take a quick 2-minute clinical questionnaire. Our AI will analyze your responses to provide a personalized severity score, clinical impression, and action plan.</p>
+            <div className="assessment-banner">
+                <div>
+                    <h2 style={{ fontSize: '24px', fontWeight: 500, marginBottom: 12 }}>AI Mental Health Assessment</h2>
+                    <p style={{ opacity: 0.85, fontSize: '15px', lineHeight: 1.6, margin: 0, fontWeight: 400 }}>Take a quick 2-minute clinical questionnaire. Our AI will analyze your responses to provide a personalized severity score, clinical impression, and action plan.</p>
                 </div>
                 <button
                     className="btn-primary"
-                    style={{ background: 'white', color: 'var(--primary-navy)', border: 'none', padding: '16px 32px', fontSize: '1.1rem', fontWeight: 600 }}
+                    style={{ background: 'white', color: 'var(--teal-800)', border: 'none', padding: '16px 36px', fontSize: '16px', fontWeight: 500, boxShadow: '0 4px 14px rgba(46, 43, 42, 0.08)' }}
                     onClick={() => window.location.href = '/app/assessment'}
                 >
                     Start Assessment

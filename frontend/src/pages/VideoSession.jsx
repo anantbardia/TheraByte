@@ -373,6 +373,18 @@ export default function VideoSession({ auth, identityMode = "Anonymous" }) {
                 navigate(`/app/feedback?type=video&session_id=${activeRoomId}`);
                 setIsSessionStarted(false);
             }
+        } else if (isManualEnd && !isSessionStarted && (lobbyState === 'waiting' || lobbyState === 'initial' || lobbyState === 'pending-confirmation')) {
+            if (appointment && !isTherapist && lobbyState === 'waiting') {
+                try {
+                    // Revert status to Scheduled or Confirmed if patient leaves waiting room early
+                    await fetch(`${import.meta.env.VITE_API_URL}/api/appointments/${appointment.id}/status`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ status: 'Confirmed' })
+                    });
+                } catch (e) { }
+            }
+            navigate(isTherapist ? '/therapist/dashboard' : '/app');
         } else {
             setIsSessionStarted(false);
         }
@@ -403,7 +415,7 @@ export default function VideoSession({ auth, identityMode = "Anonymous" }) {
                                 <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2.2rem', marginBottom: 12, color: 'var(--primary-navy)' }}>Secure Video Session</h1>
                                 <p style={{ color: '#5a6b7d', marginBottom: 32 }}>Book a private, end-to-end encrypted session with a verified specialist.</p>
 
-                                <div style={{ background: 'white', padding: '24px', borderRadius: 'var(--r-xl)', border: '1px solid var(--border-soft)', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+                                <div style={{ background: 'rgba(255,255,255,0.4)', backdropFilter: 'blur(16px)', padding: '32px', borderRadius: 'var(--r-2xl)', border: '1px solid rgba(255,255,255,0.5)', boxShadow: '0 8px 32px rgba(0,0,0,0.04)' }}>
                                     <h4 style={{ marginBottom: 16, fontSize: '0.9rem', textTransform: 'uppercase', color: '#94a3b8' }}>1. Select a Specialist</h4>
                                     <div style={{ display: 'grid', gap: 12, marginBottom: 24 }}>
                                         {availableTherapists.map(t => (
@@ -463,7 +475,7 @@ export default function VideoSession({ auth, identityMode = "Anonymous" }) {
                         ) : lobbyState === 'pending-confirmation' ? (
                             <>
                                 <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', marginBottom: 16 }}>Request Sent</h1>
-                                <div style={{ background: 'white', padding: 32, borderRadius: 'var(--r-xl)', border: '1px solid var(--border-soft)', marginBottom: 24 }}>
+                                <div style={{ background: 'rgba(255,255,255,0.4)', backdropFilter: 'blur(16px)', padding: 32, borderRadius: 'var(--r-2xl)', border: '1px solid rgba(255,255,255,0.5)', marginBottom: 24, boxShadow: '0 8px 32px rgba(0,0,0,0.04)' }}>
                                     <div className="pulsing-dot" style={{ width: 14, height: 14, borderRadius: '50%', background: 'var(--amber)', display: 'inline-block', marginBottom: 20, animation: 'pulse 1.5s infinite alternate' }} />
                                     <h3 style={{ marginBottom: 8 }}>Appointment Request Sent – Awaiting Confirmation</h3>
                                     <p style={{ color: '#5a6b7d', fontSize: '0.95rem', lineHeight: 1.5 }}>
@@ -487,14 +499,16 @@ export default function VideoSession({ auth, identityMode = "Anonymous" }) {
                         ) : lobbyState === 'waiting' ? (
                             <>
                                 <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', marginBottom: 16 }}>Secure Lobby</h1>
-                                <div style={{ background: 'white', padding: 32, borderRadius: 'var(--r-xl)', border: '1px solid var(--border-soft)', marginBottom: 24 }}>
+                                <div style={{ background: 'rgba(255,255,255,0.4)', backdropFilter: 'blur(16px)', padding: 32, borderRadius: 'var(--r-2xl)', border: '1px solid rgba(255,255,255,0.5)', marginBottom: 24, boxShadow: '0 8px 32px rgba(0,0,0,0.04)' }}>
                                     <div className="pulsing-dot" style={{ width: 14, height: 14, borderRadius: '50%', background: 'var(--primary-mint)', display: 'inline-block', marginBottom: 20, animation: 'pulse 1.5s infinite alternate' }} />
                                     <h3 style={{ marginBottom: 8 }}>Waiting for Dr. {appointment?.therapist_name}</h3>
                                     <p style={{ color: '#5a6b7d', fontSize: '0.95rem', lineHeight: 1.5 }}>
                                         The specialist has been notified. The secure video feed will start immediately once they admit you from the lobby.
                                     </p>
                                 </div>
-                                <button className="btn-secondary" onClick={() => endCall(true)}>Leave Waiting Room</button>
+                                <div style={{ textAlign: 'center' }}>
+                                    <button className="btn-secondary" style={{ padding: '14px 32px', borderRadius: '12px', fontSize: '1rem', fontWeight: 600, transition: 'all 0.2s', border: '1px solid #cbd5e1' }} onClick={() => endCall(true)}>Leave Waiting Room</button>
+                                </div>
                                 <style>{`@keyframes pulse { from { opacity: 0.4; transform: scale(0.8) } to { opacity: 1; transform: scale(1.1) } }`}</style>
                             </>
                         ) : (
@@ -506,8 +520,8 @@ export default function VideoSession({ auth, identityMode = "Anonymous" }) {
                                 </p>
 
                                 {appointment && !isTherapist && (
-                                    <div style={{ background: 'white', padding: '20px', borderRadius: 'var(--r-xl)', border: '1px solid var(--border-soft)', marginBottom: 32, textAlign: 'left' }}>
-                                        <h4 style={{ marginBottom: 16, borderBottom: '1px solid #eee', paddingBottom: 8 }}>Pre-Session Check-in</h4>
+                                    <div style={{ background: 'rgba(255,255,255,0.4)', backdropFilter: 'blur(16px)', padding: '32px', borderRadius: 'var(--r-2xl)', border: '1px solid rgba(255,255,255,0.5)', marginBottom: 32, textAlign: 'left', boxShadow: '0 8px 32px rgba(0,0,0,0.04)' }}>
+                                        <h4 style={{ marginBottom: 16, borderBottom: '1px solid rgba(0,0,0,0.05)', paddingBottom: 8 }}>Pre-Session Check-in</h4>
                                         <p style={{ fontSize: '0.9rem', color: '#5a6b7d', marginBottom: 12 }}>How are you feeling right now?</p>
                                         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 20 }}>
                                             {['Calm', 'Anxious', 'Sad', 'Stressed', 'Neutral'].map(m => (

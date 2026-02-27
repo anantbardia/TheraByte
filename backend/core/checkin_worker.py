@@ -6,18 +6,14 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import database
-import google.generativeai as genai
-from core.mindbridge import GEMINI_API_KEY
+from core.mindbridge import client, GROQ_API_KEY
 import logging
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("checkin_worker")
 
-if GEMINI_API_KEY and GEMINI_API_KEY != "YOUR_GEMINI_API_KEY_HERE":
-    genai.configure(api_key=GEMINI_API_KEY)
-
 def generate_checkin_message(user_info) -> str:
-    """Uses Gemini to generate a personalized proactive check-in message."""
+    """Uses Groq to generate a personalized proactive check-in message."""
     nickname = user_info['nickname']
     age_group = user_info['age_group']
     profile = database.get_profile(user_info['id'])
@@ -46,12 +42,13 @@ RULES for the message:
 Draft the message:"""
 
     try:
-        model = genai.GenerativeModel("gemini-2.0-flash")
-        response = model.generate_content(
-            prompt,
-            generation_config={"temperature": 0.5, "max_output_tokens": 150}
+        completion = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.5,
+            max_completion_tokens=150
         )
-        return response.text.strip()
+        return completion.choices[0].message.content.strip()
     except Exception as e:
         logger.error(f"Error generating check-in: {e}")
         return f"Hi {nickname}, just checking in to see how you're feeling today. Whenever you're ready, this space is here for you."

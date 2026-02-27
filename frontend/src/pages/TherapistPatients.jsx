@@ -8,7 +8,7 @@ const RiskRing = ({ score }) => {
     const r = 20
     const circumference = 2 * Math.PI * r
     const offset = circumference - (score / 100) * circumference
-    const color = score >= 70 ? '#ef4444' : score >= 40 ? '#f59e0b' : '#10b981'
+    const color = score >= 70 ? 'var(--red-400)' : score >= 40 ? 'var(--amber-400)' : 'var(--green-400)'
 
     return (
         <svg className="pr-risk-ring" viewBox="0 0 48 48" fill="none">
@@ -28,13 +28,13 @@ const RiskRing = ({ score }) => {
 }
 
 const getAvatarColor = (score) => score >= 70
-    ? 'linear-gradient(135deg, #fca5a5, #ef4444)'
+    ? 'linear-gradient(135deg, var(--red-200), var(--red-400))'
     : score >= 40
-        ? 'linear-gradient(135deg, #fde68a, #f59e0b)'
-        : 'linear-gradient(135deg, #6ee7b7, #10b981)'
+        ? 'linear-gradient(135deg, var(--amber-200), var(--amber-400))'
+        : 'linear-gradient(135deg, var(--green-200), var(--green-400))'
 
 const getRiskLabel = (score) => score >= 75 ? '🚨 CRITICAL' : score >= 50 ? '⚠️ High Risk' : score >= 30 ? 'Moderate' : 'Stable'
-const getRiskColor = (score) => score >= 75 ? '#ef4444' : score >= 50 ? '#f59e0b' : '#10b981'
+const getRiskColor = (score) => score >= 75 ? 'var(--red-600)' : score >= 50 ? 'var(--amber-600)' : 'var(--green-600)'
 const getTagStyle = (score) => score >= 75
     ? 'badge-base badge-red tp-pulse'
     : score >= 50 ? 'badge-base badge-amber' : 'badge-base badge-green'
@@ -126,12 +126,12 @@ const TherapistPatients = ({ auth }) => {
                                                         <span className="pr-name" style={{ cursor: 'pointer', fontWeight: 600 }}>{appt.patient_name || 'Patient'}</span>
                                                     </Link>
                                                     <div className="pr-meta" style={{ marginTop: 4 }}>
-                                                        <span style={{ fontSize: '0.85rem', color: '#64748b' }}>Time: {t}</span>
-                                                        <span className="badge-base" style={{ background: isWaiting ? 'var(--orange-100)' : '#f1f5f9', color: isWaiting ? 'var(--orange-600)' : '#475569', marginLeft: 8 }}>
+                                                        <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Time: {t}</span>
+                                                        <span className="badge-base" style={{ background: isWaiting ? 'var(--amber-50)' : 'var(--bg-base)', color: isWaiting ? 'var(--amber-700)' : 'var(--text-secondary)', marginLeft: 8, padding: '4px 10px', borderRadius: 'var(--r-full)', fontSize: '12px', fontWeight: 500 }}>
                                                             {appt.status}
                                                         </span>
                                                         {appt.request_type === 'AI-Initiated' && (
-                                                            <span className="badge-base" style={{ background: 'var(--purple-dim, #f3e8ff)', color: 'var(--purple, #9333ea)', marginLeft: 8 }}>
+                                                            <span className="badge-base" style={{ background: 'var(--teal-50)', color: 'var(--teal-700)', marginLeft: 8, padding: '4px 10px', borderRadius: 'var(--r-full)', fontSize: '12px', fontWeight: 500 }}>
                                                                 🤖 AI-Initiated
                                                             </span>
                                                         )}

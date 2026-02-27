@@ -81,19 +81,19 @@ const TherapistPatientView = () => {
                     <button className="tpv-summary-btn" onClick={generateSummary}>
                         {summary?.generating ? '⏳ Generating...' : '🧠 Generate Intake Summary'}
                     </button>
-                    <button className="tpv-summary-btn" style={{ background: 'var(--blue-600)' }} onClick={generatePlan}>
+                    <button className="tpv-summary-btn" style={{ background: 'var(--stone-600)' }} onClick={generatePlan}>
                         {plan?.generating ? '⏳ Generating...' : '📋 Generate Treatment Plan'}
                     </button>
                     <button
-                        className="tpv-summary-btn"
-                        style={{ background: 'var(--primary-mint)', color: 'var(--primary-navy)' }}
+                        className="btn-primary"
+                        style={{ padding: '12px 24px', fontSize: '15px', display: 'inline-flex', alignItems: 'center', boxShadow: '0 4px 14px var(--primary-mint-dim)' }}
                         onClick={() => {
                             const activeApp = appointments.find(a => ['Confirmed', 'In-Progress', 'Waiting', 'Scheduled'].includes(a.status));
                             const room = activeApp ? activeApp.id : `room-${userId}`;
                             navigate(`/therapist/video/${room}`);
                         }}
                     >
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 6 }}><path d="m22 8-6 4 6 4V8Z" /><rect x="2" y="6" width="14" height="12" rx="2" ry="2" /></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 8 }}><path d="m22 8-6 4 6 4V8Z" /><rect x="2" y="6" width="14" height="12" rx="2" ry="2" /></svg>
                         Join Video Call
                     </button>
                 </div>
@@ -119,9 +119,9 @@ const TherapistPatientView = () => {
             )}
 
             {plan && !plan.generating && !plan.error && (
-                <div className="tpv-summary glass" style={{ borderColor: 'var(--blue-300)' }}>
+                <div className="tpv-summary glass" style={{ borderColor: 'rgba(46, 43, 42, 0.08)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                        <h2 style={{ color: 'var(--blue-800)', margin: 0 }}>Clinical SOAP Note & Treatment Plan</h2>
+                        <h2 style={{ color: 'var(--text-primary)', margin: 0 }}>Clinical SOAP Note & Treatment Plan</h2>
                         <span className={`tpv-tag tpv-${plan.risk_flag?.toLowerCase()}`} style={{ fontWeight: 600 }}>Risk: {plan.risk_flag}</span>
                     </div>
                     <div className="tpv-s-grid" style={{ gridTemplateColumns: '1fr', gap: '16px' }}>
@@ -146,9 +146,9 @@ const TherapistPatientView = () => {
             )}
 
             {insights && (
-                <div className="tpv-summary glass" style={{ marginBottom: 24, borderColor: 'var(--primary-mint)' }}>
+                <div className="tpv-summary glass" style={{ marginBottom: 24, borderColor: 'var(--teal-200)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                        <h2 style={{ color: 'var(--primary-navy)', margin: 0 }}>Real-Time AI Assessment</h2>
+                        <h2 style={{ color: 'var(--text-primary)', margin: 0 }}>Real-Time AI Assessment</h2>
                         <span className="tpv-tag tpVar-medium" style={{ fontWeight: 600 }}>Trend: {insights.sentiment_trend}</span>
                     </div>
                     <p style={{ lineHeight: 1.6, color: '#334155', marginBottom: 20 }}>{insights.overall_assessment || insights.assessment}</p>
