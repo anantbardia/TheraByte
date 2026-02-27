@@ -75,13 +75,28 @@ function AppContent({ auth, setAuth, logout }) {
 }
 
 function App() {
-  const [auth, setAuth] = useState(null)
-  const logout = () => setAuth(null)
+  // Persist auth across page refreshes using sessionStorage
+  const [auth, setAuth] = useState(() => {
+    try {
+      const saved = sessionStorage.getItem('therabyte_auth')
+      return saved ? JSON.parse(saved) : null
+    } catch { return null }
+  })
+
+  const handleSetAuth = (data) => {
+    setAuth(data)
+    try { sessionStorage.setItem('therabyte_auth', JSON.stringify(data)) } catch { }
+  }
+
+  const logout = () => {
+    setAuth(null)
+    try { sessionStorage.removeItem('therabyte_auth') } catch { }
+  }
 
   return (
     <>
       <NoiseOverlay />
-      <AppContent auth={auth} setAuth={setAuth} logout={logout} />
+      <AppContent auth={auth} setAuth={handleSetAuth} logout={logout} />
     </>
   )
 }

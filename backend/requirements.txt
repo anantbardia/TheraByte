@@ -1,11 +1,10 @@
 fastapi
 uvicorn
-google-generativeai
 pydantic
 requests
 langgraph
 langchain
-langchain-google-genai
+fastembed
 joblib
 scikit-learn
 chromadb

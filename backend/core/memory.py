@@ -1,7 +1,5 @@
 import os
 import uuid
-import hashlib
-import math
 
 # Provide absolute path for ChromaDB storage
 CHROMA_DB_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "chroma_data")
@@ -11,47 +9,14 @@ _client = None
 _memory_collection = None
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Ultra-lightweight embedding function — pure Python, ZERO external downloads.
-# Uses character-level n-gram hashing into a fixed 128-dim vector.
-# No PyTorch, no ONNX, no HuggingFace. Fits comfortably inside 512MB.
-# Quality: adequate for basic semantic similarity in a therapy context.
-# ─────────────────────────────────────────────────────────────────────────────
-_DIM = 128  # embedding dimensionality
-
-def _hash_embed(texts: list) -> list:
-    """
-    Convert each text to a 128-d float vector via character trigram hashing.
-    Returns a list of 128-element lists (matching ChromaDB EmbeddingFunction signature).
-    """
-    results = []
-    for text in texts:
-        text = (text or "").lower()
-        vec = [0.0] * _DIM
-        # slide a window of 3 characters across the text
-        for i in range(len(text) - 2):
-            trigram = text[i:i + 3]
-            h = int(hashlib.md5(trigram.encode()).hexdigest(), 16)
-            bucket = h % _DIM
-            vec[bucket] += 1.0
-
-        # L2-normalise so cosine distance works correctly
-        norm = math.sqrt(sum(x * x for x in vec)) or 1.0
-        results.append([x / norm for x in vec])
-    return results
-
-
-class _TinyEmbedFn:
-    """ChromaDB-compatible embedding function wrapper."""
-    def __call__(self, input: list) -> list:  # noqa: A002
-        return _hash_embed(input)
-
-
-_EMBED_FN = _TinyEmbedFn()
-
-
 def _get_collection():
-    """Lazily initializes the ChromaDB client and collection on first use."""
+    """
+    Lazily initializes the ChromaDB client and collection on first use.
+
+    Uses FastEmbed (BAAI/bge-small-en-v1.5 via ONNX) — a genuine semantic neural
+    embedding model that fits in <60 MB RAM. No PyTorch, no HuggingFace Transformers.
+    Downloads once (~33 MB) and caches to disk automatically.
+    """
     global _client, _memory_collection
 
     if _memory_collection is not None:
@@ -60,6 +25,7 @@ def _get_collection():
     try:
         import chromadb
         from chromadb.config import Settings
+        from chromadb.utils.embedding_functions import FastEmbedEmbeddingFunction
 
         if _client is None:
             _client = chromadb.PersistentClient(
@@ -67,10 +33,17 @@ def _get_collection():
                 settings=Settings(allow_reset=True, anonymized_telemetry=False),
             )
 
-        # Use our tiny pure-Python embedding function — NO HuggingFace downloads.
+        # FastEmbed uses BAAI/bge-small-en-v1.5 — a proper transformer trained on
+        # semantic similarity tasks. It is quantized/ONNX-optimised so it uses
+        # ~50 MB RAM vs ~300 MB for sentence-transformers+PyTorch.
+        ef = FastEmbedEmbeddingFunction(
+            model_name="BAAI/bge-small-en-v1.5",
+            cache_dir=os.path.join(os.path.dirname(os.path.dirname(__file__)), "embed_cache"),
+        )
+
         _memory_collection = _client.get_or_create_collection(
-            name="mindbridge_memories_v2",   # new name avoids conflict with old ONNX collection
-            embedding_function=_EMBED_FN,
+            name="mindbridge_memories_v3",  # v3 = fastembed neural collection
+            embedding_function=ef,
             metadata={"hnsw:space": "cosine"},
         )
     except Exception as e:
@@ -102,7 +75,7 @@ def store_memory(user_id: str, role: str, content: str):
 
 
 def retrieve_relevant_memories(user_id: str, query: str, k: int = 3) -> str:
-    """Retrieves the top-k most similar past interactions for a specific user."""
+    """Retrieves the top-k most semantically similar past interactions for a specific user."""
     collection = _get_collection()
     if not collection:
         return ""

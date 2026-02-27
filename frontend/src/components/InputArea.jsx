@@ -13,10 +13,18 @@ const InputArea = ({ onSend, disabled }) => {
         const SR = window.SpeechRecognition || window.webkitSpeechRecognition
         if (SR) {
             const r = new SR()
-            r.continuous = false; r.interimResults = false; r.lang = 'en-US'
+            r.continuous = true        // keep listening until stopped
+            r.interimResults = true    // show words as they're being spoken
+            r.lang = 'en-US'
             r.onstart = () => setIsListening(true)
             r.onend = () => setIsListening(false)
-            r.onresult = (e) => setInput(prev => prev + (prev ? ' ' : '') + e.results[0][0].transcript)
+            r.onresult = (e) => {
+                let final = ''
+                for (let i = e.resultIndex; i < e.results.length; i++) {
+                    if (e.results[i].isFinal) final += e.results[i][0].transcript + ' '
+                }
+                if (final) setInput(prev => (prev + final).trimStart())
+            }
             setRecognition(r)
         }
     }, [])

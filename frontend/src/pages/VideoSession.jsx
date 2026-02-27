@@ -45,9 +45,27 @@ export default function VideoSession({ auth, identityMode = "Anonymous" }) {
     // Setup dynamic Room ID
     const activeRoomId = roomId || appointment?.id || `room-${auth?.session_id || 'default'}`;
 
-    // WebRTC Config
+    // WebRTC Config — STUN + TURN for production (hosted) reliability.
+    // STUN alone fails when both peers are behind NAT (home routers, firewalls).
+    // TURN relays traffic through the server when direct P2P is blocked.
     const rtcConfig = {
-        iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+        iceServers: [
+            // Multiple STUN servers for resilience
+            { urls: 'stun:stun.l.google.com:19302' },
+            { urls: 'stun:stun1.l.google.com:19302' },
+            { urls: 'stun:stun2.l.google.com:19302' },
+            // Free public TURN relay — critical for production video calls
+            {
+                urls: [
+                    'turn:openrelay.metered.ca:80',
+                    'turn:openrelay.metered.ca:443',
+                    'turns:openrelay.metered.ca:443',
+                ],
+                username: 'openrelayproject',
+                credential: 'openrelayproject',
+            },
+        ],
+        iceCandidatePoolSize: 10,
     };
 
     const isTherapist = auth?.therapist_id || identityMode === 'therapist';
