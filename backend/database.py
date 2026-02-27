@@ -242,9 +242,11 @@ def get_patient_appointments(user_id):
 
 def get_therapist_appointments(therapist_id):
     conn = get_conn()
+    import datetime
+    today_str = datetime.datetime.now().strftime("%Y-%m-%d")
     cursor = conn.execute(
-        "SELECT a.*, u.nickname as patient_name FROM appointments a JOIN users u ON a.user_id = u.id WHERE a.therapist_id = ? ORDER BY a.scheduled_time ASC",
-        (therapist_id,)
+        "SELECT a.*, u.nickname as patient_name FROM appointments a JOIN users u ON a.user_id = u.id WHERE a.therapist_id = ? AND date(a.scheduled_time) = ? ORDER BY a.scheduled_time ASC",
+        (therapist_id, today_str)
     )
     apps = [dict(row) for row in cursor.fetchall()]
     conn.close()
