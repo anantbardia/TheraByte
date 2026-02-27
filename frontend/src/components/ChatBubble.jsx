@@ -3,18 +3,30 @@ import './ChatBubble.css'
 
 const STEP_EMOJI = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣']
 
-// Parse content to extract numbered steps (1️⃣ ... 5️⃣)
+// Parse content into clean readable segments
 const renderContent = (content) => {
-    const lines = content.split('\n')
+    // Split by newlines, filter blank lines
+    const lines = content.split('\n').filter(l => l.trim() !== '')
     const elements = []
-    let stepBuffer = []
     let textBuffer = []
 
     const flushText = () => {
         if (textBuffer.length > 0) {
             elements.push(
-                <div key={`t-${elements.length}`}>
-                    {textBuffer.map((line, i) => <p key={i}>{line || '\u00A0'}</p>)}
+                <div key={`t-${elements.length}`} className="msg-para-group">
+                    {textBuffer.map((line, i) => {
+                        // Render **bold** markdown inline
+                        const parts = line.split(/(\*\*[^*]+\*\*)/g)
+                        return (
+                            <p key={i}>
+                                {parts.map((part, j) =>
+                                    part.startsWith('**') && part.endsWith('**')
+                                        ? <strong key={j}>{part.slice(2, -2)}</strong>
+                                        : part
+                                )}
+                            </p>
+                        )
+                    })}
                 </div>
             )
             textBuffer = []

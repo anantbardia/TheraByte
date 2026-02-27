@@ -42,6 +42,7 @@ const ChatSession = ({ auth }) => {
     const [tts, setTts] = useState(false)
     const [showBreathing, setShowBreathing] = useState(false)
     const [showVoiceMode, setShowVoiceMode] = useState(false)
+    const [showWidgets, setShowWidgets] = useState(false)
     const [quickRepliesVisible, setQuickRepliesVisible] = useState(true)
     const [sessionSeconds, setSessionSeconds] = useState(0)
     const endRef = useRef(null)
@@ -147,7 +148,6 @@ const ChatSession = ({ auth }) => {
                     <span className="ct-timer"><IconClock />{formatDuration(sessionSeconds)}</span>
                 </div>
                 <div className="ct-right">
-                    {/* Voice Mode button */}
                     <button
                         className="vm-launch-btn"
                         onClick={() => setShowVoiceMode(true)}
@@ -159,6 +159,13 @@ const ChatSession = ({ auth }) => {
                             <line x1="12" x2="12" y1="19" y2="22" />
                         </svg>
                         Voice Mode
+                    </button>
+                    <button
+                        className={`ct-icon ${showWidgets ? 'on' : ''}`}
+                        onClick={() => setShowWidgets(p => !p)}
+                        title="Toggle info widgets"
+                    >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></svg>
                     </button>
                     <button
                         className={`ct-icon ${tts ? 'on' : ''}`}
@@ -188,10 +195,13 @@ const ChatSession = ({ auth }) => {
             {/* Body */}
             <div className="chat-body">
                 <div className="chat-col">
-                    <div className="chat-widgets">
-                        <WeatherWidget /><QuoteWidget /><HelplineWidget />
-                    </div>
-                    <div className="chat-mood">
+                    {/* Collapsible info bar */}
+                    {showWidgets && (
+                        <div className="chat-widgets" style={{ marginBottom: 20 }}>
+                            <WeatherWidget /><QuoteWidget /><HelplineWidget />
+                        </div>
+                    )}
+                    <div className="chat-mood" style={{ marginBottom: 20 }}>
                         <MoodTracker onSelect={handleMood} />
                     </div>
                     {quickRepliesVisible && messages.length <= 1 && (

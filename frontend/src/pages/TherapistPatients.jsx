@@ -261,44 +261,64 @@ const TherapistPatients = ({ auth }) => {
                             )}
                         </div>
 
-                        {/* Risk heatmap */}
+                        {/* Mood Distribution */}
                         <div className="tp-section">
-                            <h2>Risk Heatmap</h2>
-                            <div className="tp-heatmap">
-                                {stats.risk_history?.length > 0 ? (
-                                    stats.risk_history.map((r, i) => (
-                                        <div
-                                            key={i}
-                                            className="hm-cell"
-                                            style={{
-                                                background: r.score > 70 ? '#ef4444' : r.score > 30 ? '#f59e0b' : '#10b981',
-                                                opacity: Math.max(0.25, r.score / 100)
-                                            }}
-                                            title={`Risk score: ${r.score}`}
-                                        />
-                                    ))
-                                ) : (
-                                    <p className="tp-empty">Risk data populates as users interact.</p>
-                                )}
-                            </div>
+                            <h2>Mood Distribution</h2>
+                            {(() => {
+                                const moods = stats.mood_history || []
+                                if (moods.length === 0) return <p className="tp-empty">No mood data yet.</p>
+                                const counts = {}
+                                moods.forEach(m => { counts[m.label] = (counts[m.label] || 0) + 1 })
+                                const total = moods.length
+                                const moodColors = {
+                                    'Happy': 'var(--green-500)', 'Calm': 'var(--teal-400)',
+                                    'Anxious': 'var(--amber-500)', 'Sad': 'var(--slate-400)',
+                                    'Angry': 'var(--red-500)', 'Overwhelmed': 'var(--red-400)',
+                                }
+                                return (
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                                        {Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([label, count]) => (
+                                            <div key={label}>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4, fontSize: 13 }}>
+                                                    <span style={{ fontWeight: 500, color: 'var(--text-primary)' }}>{label}</span>
+                                                    <span style={{ color: 'var(--text-muted)' }}>{count} ({Math.round(count / total * 100)}%)</span>
+                                                </div>
+                                                <div style={{ height: 8, background: 'var(--stone-100)', borderRadius: 4, overflow: 'hidden' }}>
+                                                    <div style={{ height: '100%', width: `${count / total * 100}%`, background: moodColors[label] || 'var(--teal-400)', borderRadius: 4, transition: 'width 0.6s ease' }} />
+                                                </div>
+                                            </div>
+                                        ))}
+                                        <p style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>{total} total mood entries across all sessions</p>
+                                    </div>
+                                )
+                            })()}
                         </div>
 
-                        {/* Mood timeline */}
+                        {/* Platform Overview */}
                         <div className="tp-section">
-                            <h2>Recent Mood Logs</h2>
-                            <div className="tp-moods">
-                                {stats.mood_history?.length > 0 ? (
-                                    stats.mood_history.slice(-10).reverse().map((m, i) => (
-                                        <div key={i} className="mood-row">
-                                            <span className="mr-time">
-                                                {new Date(m.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                            </span>
-                                            <span className="mr-dot" />
-                                            <span className="mr-label">{m.label}</span>
+                            <h2>Platform Overview</h2>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                                    {[
+                                        { label: 'Avg. Messages / Session', value: stats.total_sessions > 0 ? Math.round((stats.mood_history?.length || 0) / stats.total_sessions) || '—' : '—', color: 'var(--teal-600)' },
+                                        { label: 'High Risk Events', value: stats.high_risk_events || 0, color: stats.high_risk_events > 0 ? 'var(--red-600)' : 'var(--green-600)' },
+                                        { label: 'Total Active Users', value: stats.total_users || 0, color: 'var(--teal-500)' },
+                                        { label: 'Total Sessions', value: stats.total_sessions || 0, color: 'var(--slate-500)' },
+                                    ].map(item => (
+                                        <div key={item.label} style={{ background: 'var(--bg-elevated)', borderRadius: 'var(--r-md)', padding: '16px 18px', border: '1px solid var(--border)' }}>
+                                            <div style={{ fontSize: '1.6rem', fontWeight: 700, color: item.color, fontFamily: 'var(--font-display)', lineHeight: 1 }}>{item.value}</div>
+                                            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: 6, fontWeight: 500 }}>{item.label}</div>
                                         </div>
-                                    ))
-                                ) : (
-                                    <p className="tp-empty">No mood entries yet.</p>
+                                    ))}
+                                </div>
+                                {stats.at_risk_users?.length > 0 && (
+                                    <div style={{ background: 'var(--red-100)', borderRadius: 'var(--r-md)', padding: '14px 18px', border: '1px solid rgba(169,92,92,0.2)', display: 'flex', alignItems: 'center', gap: 12 }}>
+                                        <span style={{ fontSize: '1.2rem' }}>⚠️</span>
+                                        <div>
+                                            <div style={{ fontWeight: 600, color: 'var(--red-700)', fontSize: '0.9rem' }}>{stats.at_risk_users.length} patient{stats.at_risk_users.length > 1 ? 's' : ''} require attention</div>
+                                            <div style={{ fontSize: '12px', color: 'var(--red-600)', marginTop: 2 }}>Click on a patient in the At-Risk section to view their profile</div>
+                                        </div>
+                                    </div>
                                 )}
                             </div>
                         </div>
