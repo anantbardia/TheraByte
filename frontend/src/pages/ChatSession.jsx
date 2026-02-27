@@ -96,8 +96,22 @@ const ChatSession = ({ auth }) => {
             if (!res.ok) throw new Error()
             const data = await res.json()
             const aiTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            setMessages(prev => [...prev, { role: data.role, content: data.content, time: aiTime }])
-            if (tts && data.content) speak(data.content)
+            let content = data.content || ''
+
+            // Detect booking trigger — strip the marker and show booking card
+            const shouldBook = content.includes('ACTION: BOOK_SESSION')
+            content = content.replace(/ACTION:\s*BOOK_SESSION/g, '').trim()
+
+            setMessages(prev => [
+                ...prev,
+                { role: data.role, content, time: aiTime },
+                ...(shouldBook ? [{
+                    role: 'system-booking',
+                    content: '_booking_card_',
+                    time: aiTime
+                }] : [])
+            ])
+            if (tts && content) speak(content)
         } catch {
             setMessages(prev => [...prev, { role: 'assistant', content: 'Connection interrupted. Please try again.', isError: true, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }])
         }
@@ -191,12 +205,40 @@ const ChatSession = ({ auth }) => {
                         </div>
                     )}
                     <div className="chat-messages">
-                        {messages.map((m, i) => (
-                            <ChatBubble key={i} message={m} onSpeak={speak} ttsEnabled={tts} />
-                        ))}
+                        {messages.map((m, i) => {
+                            if (m.role === 'system-booking') return (
+                                <div key={i} style={{
+                                    alignSelf: 'flex-start',
+                                    background: 'linear-gradient(135deg, rgba(126,191,181,0.15), rgba(126,191,181,0.05))',
+                                    border: '1.5px solid rgba(126,191,181,0.35)',
+                                    borderRadius: 20,
+                                    padding: '20px 24px',
+                                    maxWidth: 380,
+                                    animation: 'fadeUp 0.4s ease',
+                                }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                                        <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--teal-100)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-700)" strokeWidth="2"><rect x="2" y="5" width="14" height="14" rx="2" /><path d="m16 10 6-3v10l-6-3" /></svg>
+                                        </div>
+                                        <span style={{ fontWeight: 600, color: 'var(--teal-800)', fontSize: '0.95rem' }}>Video Session Available</span>
+                                    </div>
+                                    <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', margin: '0 0 16px', lineHeight: 1.5 }}>
+                                        Connect with a licensed therapist for deeper, real-time support.
+                                    </p>
+                                    <button
+                                        className="btn-primary"
+                                        style={{ width: '100%', justifyContent: 'center', padding: '11px 20px', fontSize: '0.9rem' }}
+                                        onClick={() => window.location.href = '/app/video'}
+                                    >
+                                        Book Video Session →
+                                    </button>
+                                </div>
+                            )
+                            return <ChatBubble key={i} message={m} onSpeak={speak} ttsEnabled={tts} />
+                        })}
                         {isLoading && (
                             <div className="typing-indicator">
-                                <span className="typing-label">TheraByte is analyzing</span>
+                                <span className="typing-label">TheraByte is thinking</span>
                                 <div className="typing-dots"><span /><span /><span /></div>
                             </div>
                         )}
