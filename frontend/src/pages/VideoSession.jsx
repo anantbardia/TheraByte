@@ -498,16 +498,37 @@ export default function VideoSession({ auth, identityMode = "Anonymous" }) {
                             </div>
                         ) : lobbyState === 'waiting' ? (
                             <>
-                                <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', marginBottom: 16 }}>Secure Lobby</h1>
-                                <div style={{ background: 'rgba(255,255,255,0.4)', backdropFilter: 'blur(16px)', padding: 32, borderRadius: 'var(--r-2xl)', border: '1px solid rgba(255,255,255,0.5)', marginBottom: 24, boxShadow: '0 8px 32px rgba(0,0,0,0.04)' }}>
-                                    <div className="pulsing-dot" style={{ width: 14, height: 14, borderRadius: '50%', background: 'var(--primary-mint)', display: 'inline-block', marginBottom: 20, animation: 'pulse 1.5s infinite alternate' }} />
-                                    <h3 style={{ marginBottom: 8 }}>Waiting for Dr. {appointment?.therapist_name}</h3>
-                                    <p style={{ color: '#5a6b7d', fontSize: '0.95rem', lineHeight: 1.5 }}>
-                                        The specialist has been notified. The secure video feed will start immediately once they admit you from the lobby.
+                                <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', marginBottom: 16, color: 'var(--primary-navy)' }}>Secure Lobby</h1>
+                                <div style={{ background: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(16px)', padding: 32, borderRadius: 'var(--r-2xl)', border: '1px solid rgba(255,255,255,0.6)', marginBottom: 24, boxShadow: '0 8px 32px rgba(0,0,0,0.04)' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+                                        <div style={{ width: 14, height: 14, borderRadius: '50%', background: 'var(--primary-mint)', animation: 'pulse 1.5s infinite alternate', flexShrink: 0 }} />
+                                        <h3 style={{ margin: 0 }}>Waiting for Dr. {appointment?.therapist_name}</h3>
+                                    </div>
+                                    <p style={{ color: '#5a6b7d', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+                                        The specialist has been notified. The secure video feed will start automatically once they admit you.
                                     </p>
                                 </div>
                                 <div style={{ textAlign: 'center' }}>
-                                    <button className="btn-secondary" style={{ padding: '14px 32px', borderRadius: '12px', fontSize: '1rem', fontWeight: 600, transition: 'all 0.2s', border: '1px solid #cbd5e1' }} onClick={() => endCall(true)}>Leave Waiting Room</button>
+                                    <button
+                                        onClick={() => endCall(true)}
+                                        style={{
+                                            background: 'rgba(255,255,255,0.6)',
+                                            backdropFilter: 'blur(12px)',
+                                            border: '1px solid rgba(0,0,0,0.12)',
+                                            borderRadius: 'var(--r-full)',
+                                            padding: '13px 32px',
+                                            fontSize: '0.95rem',
+                                            fontWeight: 600,
+                                            color: '#5a6b7d',
+                                            cursor: 'pointer',
+                                            transition: 'all 0.2s',
+                                            fontFamily: 'var(--font-body)',
+                                        }}
+                                        onMouseOver={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.85)'; e.currentTarget.style.color = '#0f172a'; }}
+                                        onMouseOut={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.6)'; e.currentTarget.style.color = '#5a6b7d'; }}
+                                    >
+                                        ← Leave Waiting Room
+                                    </button>
                                 </div>
                                 <style>{`@keyframes pulse { from { opacity: 0.4; transform: scale(0.8) } to { opacity: 1; transform: scale(1.1) } }`}</style>
                             </>

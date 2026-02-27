@@ -142,9 +142,22 @@ const TherapistPatients = ({ auth }) => {
                                                         <Link
                                                             to={`/therapist/video/${appt.id}`}
                                                             className="btn-primary"
-                                                            style={{ padding: '8px 16px', borderRadius: 20, fontSize: '0.9rem', background: appt.status === 'In-Progress' ? 'var(--blue-600)' : 'var(--primary-mint)', animation: isWaiting ? 'pulse 1.5s infinite alternate' : 'none' }}
+                                                            style={{
+                                                                padding: '8px 18px',
+                                                                borderRadius: 20,
+                                                                fontSize: '0.9rem',
+                                                                fontWeight: 600,
+                                                                color: '#ffffff',
+                                                                background: appt.status === 'In-Progress' ? 'var(--teal-600)' : isWaiting ? 'var(--teal-500)' : 'var(--primary-mint)',
+                                                                animation: isWaiting ? 'tp-pulse-animation 2s infinite' : 'none',
+                                                                textDecoration: 'none',
+                                                                display: 'inline-flex',
+                                                                alignItems: 'center',
+                                                                gap: 6,
+                                                                boxShadow: '0 4px 14px rgba(94, 156, 118, 0.4)',
+                                                            }}
                                                         >
-                                                            {isWaiting ? 'Start Session (Patient Waiting)' : appt.status === 'In-Progress' ? 'Resume Session' : 'Join Video Session'}
+                                                            {isWaiting ? '🔴 Patient Waiting — Start' : appt.status === 'In-Progress' ? 'Resume Session' : 'Join Video Session'}
                                                         </Link>
                                                     ) : appt.status === 'Pending Confirmation' || appt.status === 'Scheduled' ? (
                                                         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>

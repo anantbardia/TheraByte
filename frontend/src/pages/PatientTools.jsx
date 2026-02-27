@@ -98,15 +98,30 @@ const PatientTools = ({ auth }) => {
 
             <div className="assessment-banner">
                 <div>
-                    <h2 style={{ fontSize: '24px', fontWeight: 500, marginBottom: 12 }}>AI Mental Health Assessment</h2>
+                    <h2 style={{ fontSize: '24px', fontWeight: 600, marginBottom: 10, fontFamily: 'var(--font-display)' }}>AI Mental Health Assessment</h2>
                     <p style={{ opacity: 0.85, fontSize: '15px', lineHeight: 1.6, margin: 0, fontWeight: 400 }}>Take a quick 2-minute clinical questionnaire. Our AI will analyze your responses to provide a personalized severity score, clinical impression, and action plan.</p>
                 </div>
                 <button
-                    className="btn-primary"
-                    style={{ background: 'white', color: 'var(--teal-800)', border: 'none', padding: '16px 36px', fontSize: '16px', fontWeight: 500, boxShadow: '0 4px 14px rgba(46, 43, 42, 0.08)' }}
+                    style={{
+                        background: 'white',
+                        color: 'var(--teal-800)',
+                        border: 'none',
+                        padding: '14px 32px',
+                        fontSize: '15px',
+                        fontWeight: 600,
+                        borderRadius: 'var(--r-full)',
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
+                        whiteSpace: 'nowrap',
+                        flexShrink: 0,
+                        transition: 'all 0.2s var(--ease)',
+                        fontFamily: 'var(--font-body)',
+                    }}
+                    onMouseOver={e => e.currentTarget.style.transform = 'translateY(-2px)'}
+                    onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}
                     onClick={() => window.location.href = '/app/assessment'}
                 >
-                    Start Assessment
+                    Start Assessment →
                 </button>
             </div>
 
