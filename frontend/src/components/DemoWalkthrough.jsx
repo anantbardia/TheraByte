@@ -175,6 +175,11 @@ const DemoWalkthrough = ({ onClose }) => {
 
                 {/* Mock Chat Window */}
                 <div className="demo-chat">
+                    {/* Anonymity notice */}
+                    <div className="demo-anon-strip">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                        End-to-end encrypted &middot; Anonymous session &middot; No account needed
+                    </div>
                     <div className="demo-chat-header">
                         <div className="demo-chat-avatar">
                             <img src="/images/therabyte-icon.png" alt="TheraByte" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />

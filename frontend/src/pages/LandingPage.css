@@ -507,59 +507,34 @@
     }
 }
 
-/* ── Demo Buttons — matching landing page design language ── */
-.nav-demo-btn {
-    padding: 10px 22px;
-    border-radius: var(--r-full);
-    border: 1px solid rgba(46, 43, 42, 0.08);
-    background: rgba(255, 255, 255, 0.6);
-    color: var(--text-secondary);
-    font-size: 13.5px;
-    font-weight: 500;
+/* ── Demo buttons ── */
+/* Nav: same look as .nav-link but as a <button> */
+.nav-link-btn {
+    background: none;
+    border: none;
+    padding: 0;
     cursor: pointer;
-    transition: all var(--t-base) var(--ease);
     font-family: var(--font-body);
-    box-shadow: 0 2px 8px rgba(46, 43, 42, 0.03);
-    letter-spacing: -0.01em;
 }
 
-.nav-demo-btn:hover {
-    background: #fff;
-    color: var(--text-primary);
-    box-shadow: 0 4px 16px rgba(46, 43, 42, 0.06);
-    transform: translateY(-1px);
-}
-
+/* Hero: outlined ghost twin of .btn-primary-soft */
 .btn-demo-hero {
-    padding: 16px 36px;
-    border-radius: var(--r-full);
-    border: 1px solid rgba(46, 43, 42, 0.1);
-    background: rgba(255, 255, 255, 0.5);
+    background: transparent;
     color: var(--text-secondary);
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all var(--t-base) var(--ease);
-    font-family: var(--font-body);
-    letter-spacing: -0.01em;
-    backdrop-filter: blur(8px);
+    border: 1px solid rgba(46, 43, 42, 0.18);
+    box-shadow: none;
 }
 
 .btn-demo-hero:hover {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.6);
     color: var(--text-primary);
     box-shadow: 0 8px 24px rgba(46, 43, 42, 0.06);
-    transform: translateY(-2px);
+    border-color: rgba(46, 43, 42, 0.22);
 }
 
 @media (max-width: 640px) {
-    .nav-demo-btn {
-        display: none;
-    }
-
     .btn-demo-hero {
         width: 100%;
-        font-size: 14.5px;
-        padding: 14px 28px;
+        justify-content: center;
     }
 }

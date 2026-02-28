@@ -95,11 +95,9 @@ const LandingPage = () => {
                     <div className="nav-links">
                         <a className="nav-link" href="#space">The Space</a>
                         <a className="nav-link" href="#journey">The Journey</a>
+                        <button className="nav-link nav-link-btn" onClick={() => setShowDemo(true)}>See Demo</button>
                     </div>
-                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                        <button className="nav-demo-btn" onClick={() => setShowDemo(true)}>✨ Try Demo</button>
-                        <Link to="/login" className="nav-cta">Begin session</Link>
-                    </div>
+                    <Link to="/login" className="nav-cta">Begin session</Link>
                 </nav>
 
                 {/* ── Breathable Hero ── */}
@@ -116,8 +114,8 @@ const LandingPage = () => {
                             <Link to="/login" className="btn-primary-soft">
                                 Enter the room <IconArrow />
                             </Link>
-                            <button className="btn-demo-hero" onClick={() => setShowDemo(true)}>
-                                ✨ Try Live Demo
+                            <button className="btn-primary-soft btn-demo-hero" onClick={() => setShowDemo(true)}>
+                                See it in action <IconArrow />
                             </button>
                         </div>
                         <div className="hero-trust-note">Anonymous • Free to start • Confidential</div>

@@ -1,20 +1,21 @@
 /* ════════════════════════════════════════
-   DemoWalkthrough — aligned with LandingPage design
-   Uses same tokens: font-display, teal, navy, frosted glass
+   DemoWalkthrough — v3  Aligned with LandingPage
+   Font, color, elevation tokens match exactly
 ════════════════════════════════════════ */
 
+/* ── Overlay ── */
 .demo-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(46, 43, 42, 0.45);
-    backdrop-filter: blur(24px) saturate(1.1);
-    -webkit-backdrop-filter: blur(24px);
+    background: rgba(46, 43, 42, 0.5);
+    backdrop-filter: blur(20px) saturate(1.1);
+    -webkit-backdrop-filter: blur(20px);
     z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    animation: demoFadeIn 0.3s ease;
+    padding: 16px;
+    animation: demoFadeIn 0.25s ease;
 }
 
 @keyframes demoFadeIn {
@@ -27,26 +28,29 @@
     }
 }
 
+/* ── Modal — fixed height so nothing overflows ── */
 .demo-modal {
-    background: rgba(253, 252, 251, 0.96);
+    background: rgba(253, 252, 251, 0.97);
     backdrop-filter: blur(40px) saturate(1.2);
     -webkit-backdrop-filter: blur(40px);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 28px;
     width: 100%;
-    max-width: 620px;
-    max-height: 92vh;
+    max-width: 600px;
+    /* Explicit height — content scrolls inside */
+    height: min(680px, 94vh);
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 32px 64px -8px rgba(46, 43, 42, 0.18),
-        0 0 0 1px rgba(255, 255, 255, 0.5);
-    animation: demoSlideUp 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow:
+        0 32px 64px -8px rgba(46, 43, 42, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+    animation: demoSlideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes demoSlideUp {
     from {
-        transform: translateY(40px);
+        transform: translateY(36px);
         opacity: 0;
     }
 
@@ -56,38 +60,38 @@
     }
 }
 
-/* ── Header ── */
+/* ── Header (flex-shrink: 0 — never collapses) ── */
 .demo-header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding: 28px 32px 20px;
+    padding: 24px 28px 16px;
     flex-shrink: 0;
 }
 
 .demo-eyebrow {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     color: var(--teal-600, #0d9488);
-    letter-spacing: 0.06em;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 
 .demo-title {
     font-family: var(--font-display, 'Inter', sans-serif);
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 500;
     color: var(--text-primary, #1a1a1a);
     letter-spacing: -0.02em;
 }
 
 .demo-close {
-    width: 36px;
-    height: 36px;
+    width: 33px;
+    height: 33px;
     border-radius: var(--r-full, 100px);
     border: 1px solid rgba(46, 43, 42, 0.08);
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.5);
     color: var(--text-secondary, #666);
     cursor: pointer;
     display: flex;
@@ -95,58 +99,53 @@
     justify-content: center;
     transition: all 0.2s;
     flex-shrink: 0;
-    margin-top: 2px;
 }
 
 .demo-close:hover {
     background: rgba(46, 43, 42, 0.04);
     color: var(--text-primary, #1a1a1a);
-    transform: scale(1.05);
 }
 
-/* ── Step Progress ── */
+/* ── Step Progress — horizontal pill row ── */
 .demo-steps {
     display: flex;
-    gap: 6px;
-    padding: 0 32px 16px;
+    gap: 4px;
+    padding: 0 28px 14px;
     flex-shrink: 0;
     overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.demo-steps::-webkit-scrollbar {
+    display: none;
 }
 
 .demo-step {
-    flex: 1;
-    min-width: 90px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 9px 14px;
+    gap: 7px;
+    padding: 7px 14px;
     border-radius: var(--r-full, 100px);
     border: 1px solid transparent;
     background: transparent;
     cursor: pointer;
-    transition: all 0.25s;
-    text-align: left;
+    transition: all 0.2s;
+    white-space: nowrap;
     font-family: var(--font-body, 'Inter', sans-serif);
+    flex-shrink: 0;
 }
 
 .demo-step-num {
     font-family: var(--font-display, 'Inter', sans-serif);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     color: var(--teal-500, #14b8a6);
-    flex-shrink: 0;
 }
 
 .demo-step-label {
     font-size: 12px;
     font-weight: 500;
-    color: var(--text-muted, #999);
-    white-space: nowrap;
-}
-
-.demo-step.done .demo-step-num,
-.demo-step.done .demo-step-label {
-    color: var(--teal-600, #0d9488);
+    color: var(--text-muted, #aaa);
 }
 
 .demo-step.done {
@@ -154,64 +153,86 @@
     border-color: rgba(126, 191, 181, 0.2);
 }
 
-.demo-step.active {
-    background: rgba(126, 191, 181, 0.1);
-    border-color: rgba(126, 191, 181, 0.35);
+.demo-step.done .demo-step-label {
+    color: var(--teal-600, #0d9488);
 }
 
-.demo-step.active .demo-step-num,
+.demo-step.active {
+    background: rgba(126, 191, 181, 0.1);
+    border-color: rgba(126, 191, 181, 0.32);
+}
+
 .demo-step.active .demo-step-label {
     color: var(--text-primary, #1a1a1a);
 }
 
-.demo-step.active .demo-step-num {
-    color: var(--teal-600, #0d9488);
-}
-
-/* ── Scene Description ── */
+/* ── Scene description — single line, no overlap ── */
 .demo-desc {
-    font-size: 13px;
+    font-size: 12.5px;
     color: var(--text-secondary, #666);
-    padding: 0 32px 16px;
-    line-height: 1.55;
+    padding: 0 28px 14px;
+    line-height: 1.5;
     flex-shrink: 0;
-    border-bottom: 1px solid rgba(46, 43, 42, 0.04);
+    border-bottom: 1px solid rgba(46, 43, 42, 0.05);
+    /* Clamp to 2 lines max */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-/* ── Chat Window ── */
+/* ── Chat area — fills remaining space, scrolls internally ── */
 .demo-chat {
     display: flex;
     flex-direction: column;
     flex: 1;
     min-height: 0;
+    /* critical — allows flex child to scroll */
     overflow: hidden;
-    background: rgba(248, 249, 250, 0.6);
 }
 
+/* ── Anonymity strip ── */
+.demo-anon-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 20px;
+    background: rgba(126, 191, 181, 0.06);
+    border-bottom: 1px solid rgba(126, 191, 181, 0.1);
+    font-size: 11px;
+    color: var(--teal-700, #0f766e);
+    font-weight: 500;
+    flex-shrink: 0;
+    letter-spacing: 0.01em;
+}
+
+/* ── Chat header ── */
 .demo-chat-header {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 14px 24px;
+    padding: 12px 22px;
     background: var(--text-primary, #1a1a1a);
     flex-shrink: 0;
 }
 
 .demo-chat-avatar {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    padding: 2px;
 }
 
 .demo-chat-name {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.92);
+    color: rgba(255, 255, 255, 0.9);
     font-family: var(--font-display, 'Inter', sans-serif);
 }
 
@@ -219,8 +240,8 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.45);
+    font-size: 10.5px;
+    color: rgba(255, 255, 255, 0.4);
     margin-top: 1px;
 }
 
@@ -229,31 +250,44 @@
     height: 5px;
     background: #4ade80;
     border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .demo-label-chip {
     margin-left: auto;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 600;
-    letter-spacing: 0.08em;
-    color: rgba(255, 255, 255, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 3px 9px;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2px 8px;
     border-radius: 100px;
     text-transform: uppercase;
 }
 
-/* ── Messages ── */
+/* ── Messages — scrollable region ── */
 .demo-messages {
     flex: 1;
     overflow-y: auto;
-    padding: 24px;
+    padding: 18px 22px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    min-height: 200px;
+    gap: 12px;
+    min-height: 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(126, 191, 181, 0.2) transparent;
 }
 
+.demo-messages::-webkit-scrollbar {
+    width: 4px;
+}
+
+.demo-messages::-webkit-scrollbar-thumb {
+    background: rgba(126, 191, 181, 0.25);
+    border-radius: 2px;
+}
+
+/* ── Bubbles ── */
 .demo-msg-row {
     display: flex;
     align-items: flex-end;
@@ -273,21 +307,22 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    padding: 2px;
 }
 
 .demo-bubble {
     max-width: 80%;
-    padding: 12px 18px;
-    border-radius: 20px;
-    font-size: 13.5px;
+    padding: 11px 16px;
+    border-radius: 18px;
+    font-size: 13px;
     line-height: 1.65;
     font-family: var(--font-body, 'Inter', sans-serif);
-    animation: demoBubble 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: demoBubble 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes demoBubble {
     from {
-        transform: scale(0.9) translateY(6px);
+        transform: scale(0.92) translateY(6px);
         opacity: 0;
     }
 
@@ -298,17 +333,16 @@
 }
 
 .demo-bubble.assistant {
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     color: var(--text-secondary, #555);
     border-bottom-left-radius: 4px;
-    box-shadow: 0 4px 16px rgba(46, 43, 42, 0.04);
-    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 12px rgba(46, 43, 42, 0.04);
 }
 
 .demo-bubble.user {
     background: var(--text-primary, #1a1a1a);
-    color: rgba(255, 255, 255, 0.92);
+    color: rgba(255, 255, 255, 0.9);
     border-bottom-right-radius: 4px;
 }
 
@@ -316,21 +350,21 @@
 .demo-typing {
     display: flex;
     gap: 5px;
-    padding: 14px 20px;
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 20px;
+    padding: 13px 18px;
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 18px;
     border-bottom-left-radius: 4px;
-    box-shadow: 0 4px 16px rgba(46, 43, 42, 0.04);
-    animation: demoBubble 0.3s ease;
+    box-shadow: 0 2px 12px rgba(46, 43, 42, 0.04);
+    animation: demoBubble 0.25s ease;
 }
 
 .demo-typing span {
-    width: 7px;
-    height: 7px;
-    background: var(--teal-400, #2dd4bf);
+    width: 6px;
+    height: 6px;
+    background: rgba(126, 191, 181, 0.7);
     border-radius: 50%;
-    animation: demoTypingPulse 1.3s infinite ease-in-out;
+    animation: demoTypePulse 1.3s infinite ease-in-out;
 }
 
 .demo-typing span:nth-child(1) {
@@ -345,12 +379,12 @@
     animation-delay: 0.36s;
 }
 
-@keyframes demoTypingPulse {
+@keyframes demoTypePulse {
 
     0%,
     60%,
     100% {
-        opacity: 0.35;
+        opacity: 0.3;
         transform: translateY(0);
     }
 
@@ -360,26 +394,25 @@
     }
 }
 
-/* ── Booking Card ── */
+/* ── Booking card ── */
 .demo-booking-card {
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(126, 191, 181, 0.3);
-    border-radius: 20px;
-    padding: 18px 20px;
-    animation: demoBubble 0.4s ease;
-    box-shadow: 0 4px 16px rgba(126, 191, 181, 0.08);
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(126, 191, 181, 0.28);
+    border-radius: 18px;
+    padding: 16px 18px;
+    animation: demoBubble 0.3s ease;
 }
 
 .demo-booking-inner {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 14px;
+    gap: 11px;
+    margin-bottom: 12px;
 }
 
 .demo-booking-icon {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: rgba(126, 191, 181, 0.1);
     color: var(--teal-600, #0d9488);
@@ -390,17 +423,16 @@
 }
 
 .demo-booking-title {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 600;
     color: var(--text-primary, #1a1a1a);
     font-family: var(--font-display, 'Inter', sans-serif);
 }
 
 .demo-booking-sub {
-    font-size: 12px;
+    font-size: 11.5px;
     color: var(--text-muted, #999);
     margin-top: 2px;
-    line-height: 1.4;
 }
 
 .demo-booking-btns {
@@ -411,62 +443,61 @@
 .demo-book-primary,
 .demo-book-secondary {
     flex: 1;
-    padding: 9px 14px;
+    padding: 9px 12px;
     border-radius: var(--r-full, 100px);
     font-size: 12px;
     font-weight: 500;
-    text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 5px;
     cursor: default;
     font-family: var(--font-body, 'Inter', sans-serif);
 }
 
 .demo-book-primary {
     background: var(--text-primary, #1a1a1a);
-    color: white;
+    color: rgba(255, 255, 255, 0.92);
 }
 
 .demo-book-secondary {
-    background: rgba(126, 191, 181, 0.08);
-    border: 1px solid rgba(126, 191, 181, 0.25);
+    background: transparent;
+    border: 1px solid rgba(126, 191, 181, 0.3);
     color: var(--teal-700, #0f766e);
 }
 
-/* ── Mock Input ── */
+/* ── Mock input bar ── */
 .demo-input-bar {
-    padding: 12px 24px;
-    background: rgba(255, 255, 255, 0.7);
-    border-top: 1px solid rgba(46, 43, 42, 0.04);
+    padding: 10px 22px 12px;
+    background: rgba(255, 255, 255, 0.6);
+    border-top: 1px solid rgba(46, 43, 42, 0.05);
     flex-shrink: 0;
 }
 
 .demo-input-mock {
-    padding: 11px 18px;
+    padding: 10px 18px;
     border-radius: var(--r-full, 100px);
     border: 1px solid rgba(46, 43, 42, 0.07);
     background: rgba(248, 249, 250, 0.8);
-    font-size: 13px;
+    font-size: 12.5px;
     color: var(--text-muted, #bbb);
     font-style: italic;
     font-family: var(--font-body, 'Inter', sans-serif);
 }
 
-/* ── Navigation ── */
+/* ── Nav ── */
 .demo-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 32px;
-    border-top: 1px solid rgba(46, 43, 42, 0.04);
+    padding: 14px 28px;
+    border-top: 1px solid rgba(46, 43, 42, 0.05);
     flex-shrink: 0;
-    gap: 12px;
+    gap: 8px;
 }
 
 .demo-nav-ghost {
-    padding: 10px 20px;
+    padding: 9px 18px;
     border-radius: var(--r-full, 100px);
     border: 1px solid rgba(46, 43, 42, 0.08);
     background: transparent;
@@ -476,6 +507,7 @@
     cursor: pointer;
     transition: all 0.2s;
     font-family: var(--font-body, 'Inter', sans-serif);
+    white-space: nowrap;
 }
 
 .demo-nav-ghost:hover:not(:disabled) {
@@ -489,7 +521,7 @@
 }
 
 .demo-nav-primary {
-    padding: 10px 24px;
+    padding: 9px 22px;
     border-radius: var(--r-full, 100px);
     border: none;
     background: var(--text-primary, #1a1a1a);
@@ -503,15 +535,16 @@
     transition: all 0.2s;
     font-family: var(--font-body, 'Inter', sans-serif);
     box-shadow: 0 4px 16px rgba(46, 43, 42, 0.12);
+    white-space: nowrap;
 }
 
-.demo-nav-primary:hover:not(:disabled) {
+.demo-nav-primary:hover:not(.muted) {
     transform: translateY(-1px);
     box-shadow: 0 8px 24px rgba(46, 43, 42, 0.16);
 }
 
 .demo-nav-primary.muted {
-    background: rgba(46, 43, 42, 0.12);
+    background: rgba(46, 43, 42, 0.1);
     color: var(--text-muted, #aaa);
     box-shadow: none;
     cursor: not-allowed;
@@ -519,7 +552,7 @@
 
 .demo-dots {
     display: flex;
-    gap: 6px;
+    gap: 5px;
     flex: 1;
     justify-content: center;
 }
@@ -528,25 +561,25 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: rgba(46, 43, 42, 0.12);
+    background: rgba(46, 43, 42, 0.1);
     transition: all 0.3s;
 }
 
 .demo-dot.active {
     background: var(--teal-500, #14b8a6);
-    width: 20px;
+    width: 18px;
     border-radius: 3px;
 }
 
-/* ── Final CTA Strip ── */
+/* ── Final CTA ── */
 .demo-cta-strip {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 14px;
-    padding: 14px 32px;
-    background: rgba(126, 191, 181, 0.06);
-    border-top: 1px solid rgba(126, 191, 181, 0.12);
+    padding: 12px 28px;
+    background: rgba(126, 191, 181, 0.05);
+    border-top: 1px solid rgba(126, 191, 181, 0.1);
     font-size: 13px;
     color: var(--text-secondary, #666);
     flex-shrink: 0;
@@ -560,43 +593,51 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 7px 16px;
+    padding: 6px 16px;
     background: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(46, 43, 42, 0.08);
+    border: 1px solid rgba(46, 43, 42, 0.09);
     border-radius: var(--r-full, 100px);
     transition: all 0.2s;
-    box-shadow: 0 2px 8px rgba(46, 43, 42, 0.04);
+    font-size: 12.5px;
 }
 
 .demo-cta-link:hover {
     background: white;
-    box-shadow: 0 4px 16px rgba(46, 43, 42, 0.08);
     transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(46, 43, 42, 0.08);
 }
 
-/* ── Responsiveness ── */
-@media (max-width: 640px) {
+/* ════════════════════════
+   MOBILE RESPONSIVE
+════════════════════════ */
+@media (max-width: 600px) {
     .demo-overlay {
-        padding: 12px;
+        padding: 8px;
+        align-items: flex-end;
     }
 
     .demo-modal {
-        border-radius: 24px;
-        max-height: 96vh;
+        border-radius: 24px 24px 0 0;
+        height: 94vh;
+        max-width: 100%;
+        border-bottom: none;
     }
 
     .demo-header {
-        padding: 20px 20px 14px;
+        padding: 18px 20px 12px;
+    }
+
+    .demo-title {
+        font-size: 17px;
     }
 
     .demo-steps {
-        padding: 0 20px 12px;
-        gap: 4px;
+        padding: 0 20px 10px;
+        gap: 3px;
     }
 
     .demo-step {
-        min-width: 70px;
-        padding: 7px 10px;
+        padding: 6px 10px;
     }
 
     .demo-step-label {
@@ -604,22 +645,55 @@
     }
 
     .demo-desc {
-        padding: 0 20px 12px;
+        padding: 0 20px 10px;
+        font-size: 12px;
+    }
+
+    .demo-anon-strip {
+        font-size: 10px;
+        padding: 6px 16px;
+    }
+
+    .demo-chat-header {
+        padding: 10px 16px;
     }
 
     .demo-messages {
-        padding: 16px;
-        min-height: 160px;
+        padding: 14px 16px;
+        gap: 10px;
+    }
+
+    .demo-bubble {
+        font-size: 12.5px;
+        padding: 10px 14px;
+        max-width: 88%;
+    }
+
+    .demo-input-bar {
+        padding: 8px 16px 10px;
     }
 
     .demo-nav {
-        padding: 14px 20px;
+        padding: 10px 20px;
+    }
+
+    .demo-nav-ghost {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+
+    .demo-nav-primary {
+        padding: 8px 16px;
+        font-size: 12.5px;
     }
 
     .demo-cta-strip {
-        padding: 12px 20px;
         flex-direction: column;
         gap: 8px;
-        text-align: center;
+        padding: 10px 20px;
+    }
+
+    .demo-booking-btns {
+        flex-direction: column;
     }
 }
