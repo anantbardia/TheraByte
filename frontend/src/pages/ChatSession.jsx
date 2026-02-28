@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import ChatBubble from '../components/ChatBubble'
 import InputArea from '../components/InputArea'
 import MoodTracker from '../components/MoodTracker'
@@ -33,6 +34,7 @@ const IconClock = () => <svg width="12" height="12" viewBox="0 0 24 24" fill="no
 const IconMessageCircle = () => <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
 
 const ChatSession = ({ auth }) => {
+    const navigate = useNavigate()
     const [messages, setMessages] = useState([{
         role: 'assistant',
         content: "Welcome to TheraByte. This is a safe, completely private space.\n\nI use structured therapeutic frameworks — CBT, DBT, and ACT — to help you gain clarity about what you're experiencing. Everything here is anonymous and encrypted.\n\nHow are you feeling right now?",
@@ -219,29 +221,38 @@ const ChatSession = ({ auth }) => {
                             if (m.role === 'system-booking') return (
                                 <div key={i} style={{
                                     alignSelf: 'flex-start',
-                                    background: 'linear-gradient(135deg, rgba(126,191,181,0.15), rgba(126,191,181,0.05))',
-                                    border: '1.5px solid rgba(126,191,181,0.35)',
+                                    background: 'linear-gradient(135deg, rgba(126,191,181,0.12), rgba(126,191,181,0.04))',
+                                    border: '1.5px solid rgba(126,191,181,0.4)',
                                     borderRadius: 20,
                                     padding: '20px 24px',
-                                    maxWidth: 380,
+                                    maxWidth: 400,
                                     animation: 'fadeUp 0.4s ease',
                                 }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-                                        <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--teal-100)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+                                        <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--teal-100)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-700)" strokeWidth="2"><rect x="2" y="5" width="14" height="14" rx="2" /><path d="m16 10 6-3v10l-6-3" /></svg>
                                         </div>
-                                        <span style={{ fontWeight: 600, color: 'var(--teal-800)', fontSize: '0.95rem' }}>Video Session Available</span>
+                                        <div>
+                                            <div style={{ fontWeight: 700, color: 'var(--teal-800)', fontSize: '0.95rem' }}>Connect with a Therapist</div>
+                                            <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: 2 }}>Book a live video session for deeper support</div>
+                                        </div>
                                     </div>
-                                    <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', margin: '0 0 16px', lineHeight: 1.5 }}>
-                                        Connect with a licensed therapist for deeper, real-time support.
-                                    </p>
-                                    <button
-                                        className="btn-primary"
-                                        style={{ width: '100%', justifyContent: 'center', padding: '11px 20px', fontSize: '0.9rem' }}
-                                        onClick={() => window.location.href = '/app/video'}
-                                    >
-                                        Book Video Session →
-                                    </button>
+                                    <div style={{ display: 'flex', gap: 10, marginTop: 14 }}>
+                                        <button
+                                            className="btn-primary"
+                                            style={{ flex: 1, justifyContent: 'center', padding: '10px 14px', fontSize: '0.88rem' }}
+                                            onClick={() => navigate('/app/sessions')}
+                                        >
+                                            📅 Schedule Appointment
+                                        </button>
+                                        <button
+                                            className="btn-secondary"
+                                            style={{ flex: 1, justifyContent: 'center', padding: '10px 14px', fontSize: '0.88rem' }}
+                                            onClick={() => navigate('/app/video')}
+                                        >
+                                            🎥 Join Now
+                                        </button>
+                                    </div>
                                 </div>
                             )
                             return <ChatBubble key={i} message={m} onSpeak={speak} ttsEnabled={tts} />
