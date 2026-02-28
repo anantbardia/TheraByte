@@ -172,3 +172,9 @@
     border-color: var(--teal-300);
     color: var(--teal-700);
 }
+/* -- Mobile Responsive -- */
+@media (max-width: 768px) {
+    .bm-overlay { padding: 20px; }
+    .bm-modal { padding: 28px 20px; border-radius: 20px; }
+    .bm-circle { width: 160px; height: 160px; }
+}

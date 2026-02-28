@@ -125,3 +125,9 @@
     color: var(--slate-400);
     font-weight: 500;
 }
+/* - Mobile Responsive  */
+@media (max-width: 768px) {
+    .widget-card { padding: 10px 12px; }
+    .widget-temp { font-size: 20px; }
+    .helpline-number { font-size: 15px; }
+}

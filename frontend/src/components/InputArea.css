@@ -122,3 +122,9 @@
     display: none;
     /* Hide for cleaner look in soft UI */
 }
+/*  Mobile Responsive -- */
+@media (max-width: 768px) {
+    .input-bar { padding: 8px 12px; gap: 8px; }
+    .input-field { font-size: 14px; min-height: 36px; }
+    .input-icon, .input-send { width: 38px; height: 38px; }
+}

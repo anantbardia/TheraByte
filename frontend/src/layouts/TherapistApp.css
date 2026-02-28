@@ -123,3 +123,12 @@
         text-align: center;
     }
 }
+/* -- Additional Mobile Responsive -- */
+@media (max-width: 768px) {
+    .tn-bar { flex-wrap: wrap; gap: 8px; padding: 12px 16px; height: auto; }
+    .tn-brand { font-size: 14px; }
+    .tn-links { gap: 4px; overflow-x: auto; }
+}
+@media (max-width: 480px) {
+    .tn-links a, .tn-links button { font-size: 11px; padding: 6px 8px; }
+}

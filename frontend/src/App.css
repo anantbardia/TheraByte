@@ -231,3 +231,15 @@
     background: white;
     box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.10);
 }
+/* --------------
+   GLOBAL MOBILE RESPONSIVE — 768px breakpoint
+-------------------------------------- */
+@media (max-width: 768px) {
+    .page-wrap { padding: 20px 16px; }
+    .badge-base { font-size: 11px; padding: 3px 8px; }
+    .btn-primary, .btn-secondary {
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+    .glass { padding: 16px !important; }
+}

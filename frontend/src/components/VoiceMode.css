@@ -365,3 +365,10 @@
     background: rgba(255, 255, 255, 0.15);
     border-radius: 4px;
 }
+/*  Mobile Responsive -- */
+@media (max-width: 768px) {
+    .vm-overlay { padding: 20px; }
+    .vm-orb { width: 140px !important; height: 140px !important; }
+    .vm-history { max-height: 140px; }
+    .vm-controls { gap: 12px; }
+}

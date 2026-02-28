@@ -235,3 +235,12 @@
         grid-template-columns: 1fr;
     }
 }
+/* -- Additional Mobile Responsive -- */
+@media (max-width: 768px) {
+    .tpv-page { padding: 16px; }
+    .tpv-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .tpv-grid { grid-template-columns: 1fr; }
+    .tpv-s-grid { grid-template-columns: 1fr; }
+    .tpv-summary { padding: 16px; }
+    .tpv-summary h2 { font-size: 16px; }
+}

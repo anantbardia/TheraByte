@@ -589,3 +589,11 @@
     color: #1e293b;
     margin-bottom: 16px;
 }
+/*  Mobile Responsive -- */
+@media (max-width: 768px) {
+    .wellness-modal { padding: 20px 16px; border-radius: 16px; max-height: 95vh; }
+    .wm-close { top: 14px; right: 14px; }
+}
+@media (max-width: 480px) {
+    .wellness-modal { width: 95%; padding: 16px 12px; }
+}

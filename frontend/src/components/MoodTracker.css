@@ -95,3 +95,8 @@
     background: var(--teal-500);
     animation: bounceIn 0.3s var(--ease-bounce);
 }
+/* -- Mobile Responsive -- */
+@media (max-width: 480px) {
+    .mood-bar { gap: 6px; flex-wrap: wrap; justify-content: center; }
+    .mood-btn { padding: 8px 10px; font-size: 12px; }
+}
