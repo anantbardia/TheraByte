@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { SoftBlob, RotatingStar, FloatingRing } from '../components/Decorations'
+import DemoWalkthrough from '../components/DemoWalkthrough'
 import './LandingPage.css'
 
 /* ── Minimal, Thin SVG Icons ── */
@@ -62,6 +63,7 @@ const TESTIMONIALS = [
 ]
 
 const LandingPage = () => {
+    const [showDemo, setShowDemo] = useState(false)
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => entries.forEach(e => {
@@ -82,132 +84,141 @@ const LandingPage = () => {
     }, [])
 
     return (
-        <div className="landing">
-            {/* ── Soft Nav ── */}
-            <nav className="landing-nav">
-                <div className="nav-brand">
-                    <img src="/images/therabyte-icon.png" alt="TheraByte" className="nav-logo-img" />
-                    <span>TheraByte</span>
-                </div>
-                <div className="nav-links">
-                    <a className="nav-link" href="#space">The Space</a>
-                    <a className="nav-link" href="#journey">The Journey</a>
-                </div>
-                <Link to="/login" className="nav-cta">Begin session</Link>
-            </nav>
+        <>
+            <div className="landing">
+                {/* ── Soft Nav ── */}
+                <nav className="landing-nav">
+                    <div className="nav-brand">
+                        <img src="/images/therabyte-icon.png" alt="TheraByte" className="nav-logo-img" />
+                        <span>TheraByte</span>
+                    </div>
+                    <div className="nav-links">
+                        <a className="nav-link" href="#space">The Space</a>
+                        <a className="nav-link" href="#journey">The Journey</a>
+                    </div>
+                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                        <button className="nav-demo-btn" onClick={() => setShowDemo(true)}>✨ Try Demo</button>
+                        <Link to="/login" className="nav-cta">Begin session</Link>
+                    </div>
+                </nav>
 
-            {/* ── Breathable Hero ── */}
-            <section className="hero-section">
-                <div className="hero-content reveal">
-                    <div className="hero-pill">Not a clinic. A sanctuary.</div>
-                    <h1 className="hero-headline">
-                        A quiet place for your mind.
-                    </h1>
-                    <p className="hero-desc">
-                        An emotionally intelligent companion designed to help you reflect, regulate, and find calm. No pressure, just presence.
-                    </p>
-                    <div className="hero-actions">
-                        <Link to="/login" className="btn-primary-soft">
-                            Enter the room <IconArrow />
-                        </Link>
+                {/* ── Breathable Hero ── */}
+                <section className="hero-section">
+                    <div className="hero-content reveal">
+                        <div className="hero-pill">Not a clinic. A sanctuary.</div>
+                        <h1 className="hero-headline">
+                            A quiet place for your mind.
+                        </h1>
+                        <p className="hero-desc">
+                            An emotionally intelligent companion designed to help you reflect, regulate, and find calm. No pressure, just presence.
+                        </p>
+                        <div className="hero-actions">
+                            <Link to="/login" className="btn-primary-soft">
+                                Enter the room <IconArrow />
+                            </Link>
+                            <button className="btn-demo-hero" onClick={() => setShowDemo(true)}>
+                                ✨ Try Live Demo
+                            </button>
+                        </div>
                         <div className="hero-trust-note">Anonymous • Free to start • Confidential</div>
                     </div>
-                </div>
 
-                {/* ── Additional Gentle Static/Floating Elements ── */}
-                <SoftBlob color="var(--primary-mint-dim)" size={240} style={{ top: '15%', right: '-5%' }} />
-                <RotatingStar color="var(--amber-100)" size={40} style={{ top: '25%', left: '15%' }} />
-                <FloatingRing color="var(--teal-200)" size={80} thickness={1} style={{ bottom: '20%', left: '10%' }} />
+                    {/* ── Additional Gentle Static/Floating Elements ── */}
+                    <SoftBlob color="var(--primary-mint-dim)" size={240} style={{ top: '15%', right: '-5%' }} />
+                    <RotatingStar color="var(--amber-100)" size={40} style={{ top: '25%', left: '15%' }} />
+                    <FloatingRing color="var(--teal-200)" size={80} thickness={1} style={{ bottom: '20%', left: '10%' }} />
 
-                {/* ── Additional Gentle Static/Floating Elements ── */}
-                <SoftBlob color="var(--primary-mint-dim)" size={240} style={{ top: '15%', right: '-5%' }} />
-                <RotatingStar color="var(--amber-100)" size={40} style={{ top: '25%', left: '15%' }} />
-                <FloatingRing color="var(--teal-200)" size={80} thickness={1} style={{ bottom: '20%', left: '10%' }} />
+                    {/* ── Additional Gentle Static/Floating Elements ── */}
+                    <SoftBlob color="var(--primary-mint-dim)" size={240} style={{ top: '15%', right: '-5%' }} />
+                    <RotatingStar color="var(--amber-100)" size={40} style={{ top: '25%', left: '15%' }} />
+                    <FloatingRing color="var(--teal-200)" size={80} thickness={1} style={{ bottom: '20%', left: '10%' }} />
 
-                {/* ── Moving Soft Visuals (CSS Only) ── */}
-                <div className="hero-abstract-art reveal">
-                    <div className="art-circle c1"></div>
-                    <div className="art-circle c2"></div>
-                    <div className="art-circle c3"></div>
-                    <div className="art-circle c4"></div>
-                </div>
-            </section>
-
-            {/* ── Features (The Space) ── */}
-            <section className="features-section" id="space" style={{ position: 'relative' }}>
-                <SoftBlob color="var(--amber-50)" size={400} style={{ top: '-10%', left: '-10%' }} className="delay-2" />
-                <FloatingRing color="var(--slate-200)" size={150} thickness={2} style={{ bottom: '-5%', right: '-5%' }} />
-
-                <div className="section-header reveal">
-                    <h2 className="section-title">Designed for emotional safety</h2>
-                    <p className="section-desc">Every interaction is built to lower your heart rate and provide cognitive ease.</p>
-                </div>
-                <div className="feature-grid">
-                    {FEATURES.map((f, i) => (
-                        <div key={i} className="feature-card reveal" style={{ transitionDelay: `${i * 0.1}s` }}>
-                            <div className="fc-icon">{f.icon}</div>
-                            <h3>{f.title}</h3>
-                            <p>{f.desc}</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* ── Testimonials (Minimal, subtle) ── */}
-            <section className="testimonial-section reveal">
-                <div className="test-flex">
-                    {TESTIMONIALS.map((t, i) => (
-                        <div key={i} className="test-card">
-                            <p className="test-quote">"{t.quote}"</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* ── How it works (The Journey) ── */}
-            <section className="how-section" id="journey" style={{ position: 'relative' }}>
-                <RotatingStar color="var(--primary-mint-light)" size={60} style={{ top: '40%', right: '5%' }} />
-                <SoftBlob color="rgba(126, 191, 181, 0.05)" size={500} style={{ bottom: '-15%', left: '-20%' }} />
-                <div className="how-inner">
-                    <div className="section-header reveal">
-                        <h2 className="section-title">A gentle journey</h2>
+                    {/* ── Moving Soft Visuals (CSS Only) ── */}
+                    <div className="hero-abstract-art reveal">
+                        <div className="art-circle c1"></div>
+                        <div className="art-circle c2"></div>
+                        <div className="art-circle c3"></div>
+                        <div className="art-circle c4"></div>
                     </div>
-                    <div className="steps-flow">
-                        {STEPS.map((s, i) => (
-                            <div key={i} className="step-item reveal" style={{ transitionDelay: `${i * 0.15}s` }}>
-                                <div className="step-num">{s.num}</div>
-                                <div className="step-text">
-                                    <h3>{s.title}</h3>
-                                    <p>{s.desc}</p>
-                                </div>
+                </section>
+
+                {/* ── Features (The Space) ── */}
+                <section className="features-section" id="space" style={{ position: 'relative' }}>
+                    <SoftBlob color="var(--amber-50)" size={400} style={{ top: '-10%', left: '-10%' }} className="delay-2" />
+                    <FloatingRing color="var(--slate-200)" size={150} thickness={2} style={{ bottom: '-5%', right: '-5%' }} />
+
+                    <div className="section-header reveal">
+                        <h2 className="section-title">Designed for emotional safety</h2>
+                        <p className="section-desc">Every interaction is built to lower your heart rate and provide cognitive ease.</p>
+                    </div>
+                    <div className="feature-grid">
+                        {FEATURES.map((f, i) => (
+                            <div key={i} className="feature-card reveal" style={{ transitionDelay: `${i * 0.1}s` }}>
+                                <div className="fc-icon">{f.icon}</div>
+                                <h3>{f.title}</h3>
+                                <p>{f.desc}</p>
                             </div>
                         ))}
                     </div>
-                </div>
-            </section>
+                </section>
 
-            {/* ── Soft CTA Bottom ── */}
-            <div className="cta-banner reveal">
-                <h2>Whenever you're ready.</h2>
-                <p>Take a deep breath. We are here when you need us.</p>
-                <Link to="/login" className="btn-primary-soft">
-                    Start your session
-                </Link>
+                {/* ── Testimonials (Minimal, subtle) ── */}
+                <section className="testimonial-section reveal">
+                    <div className="test-flex">
+                        {TESTIMONIALS.map((t, i) => (
+                            <div key={i} className="test-card">
+                                <p className="test-quote">"{t.quote}"</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* ── How it works (The Journey) ── */}
+                <section className="how-section" id="journey" style={{ position: 'relative' }}>
+                    <RotatingStar color="var(--primary-mint-light)" size={60} style={{ top: '40%', right: '5%' }} />
+                    <SoftBlob color="rgba(126, 191, 181, 0.05)" size={500} style={{ bottom: '-15%', left: '-20%' }} />
+                    <div className="how-inner">
+                        <div className="section-header reveal">
+                            <h2 className="section-title">A gentle journey</h2>
+                        </div>
+                        <div className="steps-flow">
+                            {STEPS.map((s, i) => (
+                                <div key={i} className="step-item reveal" style={{ transitionDelay: `${i * 0.15}s` }}>
+                                    <div className="step-num">{s.num}</div>
+                                    <div className="step-text">
+                                        <h3>{s.title}</h3>
+                                        <p>{s.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* ── Soft CTA Bottom ── */}
+                <div className="cta-banner reveal">
+                    <h2>Whenever you're ready.</h2>
+                    <p>Take a deep breath. We are here when you need us.</p>
+                    <Link to="/login" className="btn-primary-soft">
+                        Start your session
+                    </Link>
+                </div>
+
+                {/* ── Footer ── */}
+                <footer className="landing-footer">
+                    <div className="footer-brand">
+                        <img src="/images/therabyte-icon.png" alt="TheraByte" className="footer-logo-img" />
+                        <span>TheraByte</span>
+                    </div>
+                    <div className="footer-links">
+                        <a href="#">Privacy</a>
+                        <Link to="/terms">Terms</Link>
+                        <Link to="/login">Therapist Login</Link>
+                    </div>
+                </footer>
             </div>
-
-            {/* ── Footer ── */}
-            <footer className="landing-footer">
-                <div className="footer-brand">
-                    <img src="/images/therabyte-icon.png" alt="TheraByte" className="footer-logo-img" />
-                    <span>TheraByte</span>
-                </div>
-                <div className="footer-links">
-                    <a href="#">Privacy</a>
-                    <Link to="/terms">Terms</Link>
-                    <Link to="/login">Therapist Login</Link>
-                </div>
-            </footer>
-        </div>
+            {showDemo && <DemoWalkthrough onClose={() => setShowDemo(false)} />}
+        </>
     )
 }
 
