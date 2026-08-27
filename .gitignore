@@ -14,8 +14,13 @@ venv/
 Thumbs.db
 
 # Project specific
-backend/AIpsycho.db
-backend/app.log
-backend/mindbridge.db
-backend/chroma_data/
+*.db
+*.sqlite
+*.sqlite3
+# Personal utility scripts & build logs
+rebrand.py
+replace_brand.py
+remove_bg.py
+build_output*.txt
+*.log
 backend/chroma_data/
