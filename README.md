@@ -1,66 +1,56 @@
-# TheraByte 🧠
+# TheraByte
 
-🔗 **Live Application**: [https://therabyte.vercel.app/](https://therabyte.vercel.app/)
+Live Demo: https://therabyte.vercel.app/
 
-> **TheraByte** is an intelligent, assessment-first mental health platform designed to deliver structured, evidence-based AI psychological support (CBT/DBT), real-time crisis intervention, therapist telemetry, and seamless multimodal sessions.
+TheraByte is a web-based mental health platform combining AI-driven Cognitive Behavioral Therapy (CBT) and Dialectical Behavior Therapy (DBT) interventions, automated risk detection, therapist management, and multimodal interaction interfaces.
 
----
+## Key Modules
 
+### Clinical Assessment Workflow
+- Multi-stage onboarding protocol directing users through initial screening, a five-question micro-assessment, and case routing.
+- Contextual tone adaptation targeting distinct user age brackets (13–19, 20–30, and 30+).
 
-## 🌟 Key Features
+### Psychological & Intervention Engine
+- LLM integration utilizing Groq and Llama 3.3 70B for real-time therapeutic conversational processing.
+- Machine learning classification for identifying cognitive distortions (catastrophizing, black-and-white thinking, overgeneralization) and primary emotional states.
+- In-app therapeutic modules including DBT opposite-action frameworks, 4-7-8 breathing exercises, Progressive Muscle Relaxation (PMR), grounding routines, and structured thought journals.
 
-### 1. 📋 Assessment-First Clinical Workflow
-- **Structured Onboarding**: Multi-phase triage workflow guiding users from initial welcome through a 5-question micro-assessment into tailored therapy routes.
-- **Adaptive Persona & Age Context**: Dynamic prompt engineering tailoring therapeutic tone for teens (13–19), young adults (20–30), and mature adults (30+).
+### Crisis Detection & Safety Protocols
+- Pattern matching and rule-based heuristic filters for real-time evaluation of distress, self-harm, and panic indicators.
+- Automated escalation protocols triggering crisis response UI overlays, regional helpline contacts, and step-by-step grounding sequences.
+- Floating SOS modal accessible across patient interfaces.
 
-### 2. 💬 CBT & DBT Psychological Engine
-- **Powered by Groq & Llama 3.3 70B**: High-throughput, sub-second latency therapeutic reasoning engine.
-- **Cognitive Distortion & Emotion Detection**: Built-in ML classifiers detecting cognitive distortions (catastrophizing, all-or-nothing thinking, overgeneralization) and mood states.
-- **Interactive Exercises**: Embedded DBT opposite-action modal, 4-7-8 breathing exercises, PMR (Progressive Muscle Relaxation), grounding routines, and thought journaling.
+### Therapist Analytics & Management Panel
+- Patient monitoring dashboard tracking mood distributions, calculated risk scores, appointment scheduling, and feedback entries.
+- Automated longitudinal summary generation for clinical review.
 
-### 3. 🚨 Multi-Layer Safety & Crisis Protocols
-- **Real-Time Signal Analysis**: Dual-layer heuristic regex and pattern detection for suicidal ideation, self-harm, hopelessness, and panic attack indicators.
-- **Automated Overrides**: Instantaneous crisis protocol activation providing helpline resources (988 US / Vandrevala Foundation India) and directive grounding exercises.
-- **Emergency SOS Trigger**: One-touch floating SOS overlay accessible from anywhere in the application.
+### Multimodal Interface
+- Voice-to-voice interaction utilizing browser speech recognition, continuous silence detection, and speech synthesis.
+- Video session interface leveraging WebRTC protocols and TURN server fallbacks.
 
-### 4. 📊 Therapist Telemetry & Analytics Dashboard
-- **Clinical Overview**: Real-time patient mood trends, risk score tracking, appointment booking management, and session feedback logs.
-- **Case Summarization**: AI-generated longitudinal patient profiles for attending therapists.
-
-### 5. 🎙️ Multimodal Interactions
-- **Voice-to-Voice Therapy**: Continuous silence-detection auto-looping voice interface with web speech synthesis.
-- **Video Sessions**: Integrated WebRTC video room layout with TURN server fallback for therapist-patient consultations.
-
----
-
-## 🏗️ System Architecture
+## Architecture
 
 ```
-                       ┌─────────────────────────┐
-                       │   React + Vite Frontend │
-                       │    (Patient & Therapist)│
-                       └────────────┬────────────┘
-                                    │ WebSockets / REST
-                                    ▼
-                       ┌─────────────────────────┐
-                       │     FastAPI Backend     │
-                       └────────────┬────────────┘
-                                    │
-         ┌──────────────────────────┼──────────────────────────┐
-         ▼                          ▼                          ▼
-┌──────────────────┐      ┌──────────────────┐      ┌──────────────────┐
-│  Groq LLM Engine │      │  ML Classifiers  │      │ SQLite Storage   │
-│ (Llama 3.3 70B)  │      │ (Distortion/Risk)│      │ & Trigram Vector │
-└──────────────────┘      └──────────────────┘      └──────────────────┘
+                      +-------------------------+
+                      |  React + Vite Frontend  |
+                      |  (Patient & Therapist)  |
+                      +------------+------------+
+                                   | WebSockets / REST
+                                   v
+                      +-------------------------+
+                      |     FastAPI Backend     |
+                      +------------+------------+
+                                   |
+         +-------------------------+-------------------------+
+         |                         |                         |
+         v                         v                         v
++------------------+      +------------------+      +------------------+
+| Groq LLM Engine  |      |  ML Classifiers  |      |  SQLite Storage  |
+| (Llama 3.3 70B)  |      | (Distortion/Risk)|      | & Trigram Vector |
++------------------+      +------------------+      +------------------+
 ```
 
-- **Frontend**: React 18, Vite, Vanilla CSS with custom glassmorphism design system, WebSockets.
-- **Backend**: FastAPI (Python 3.11), Uvicorn, Async WebSockets, Zero-download Trigram Vector Store.
-- **Machine Learning**: Custom Joblib classifiers for distortion and crisis scoring; Groq inference integration.
-
----
-
-## 🔒 Copyright & Ownership
-
-**TheraByte** is a personal portfolio project developed by **Anant Bardia**. 
-All Rights Reserved. This repository is displayed for project portfolio and demonstration purposes only.
+### Technology Stack
+- Frontend: React 18, Vite, Vanilla CSS, WebSockets API.
+- Backend: FastAPI, Python 3.11, Async WebSockets, custom trigram vector indexing.
+- Machine Learning & Storage: Joblib-serialized scikit-learn models, Groq API, SQLite.
